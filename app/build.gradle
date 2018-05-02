@@ -11,13 +11,15 @@ android {
         }
     }
     compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.avjindersinghsekhon.minimaltodo"
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 23
         versionCode 3
         versionName "1.2"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -26,6 +28,9 @@ android {
         }
     }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
     lintOptions {
         abortOnError false
     }
@@ -43,4 +48,27 @@ dependencies {
     compile 'com.android.support:design:23.1.0'
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:support-v13:23.1.0'
+
+    testCompile 'junit:junit:4.12'
+
+    // Android runner and rules support
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+
+    // Espresso support
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support'
+    })
+
+    // add this for intent mocking support
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
+
+    // add this for webview testing support
+    androidTestCompile 'com.android.support.test.espresso:espresso-web:2.2.2'
+
+    configurations.all {
+        resolutionStrategy.force 'com.android.support:support-annotations:23.1.0'
+    }
+
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.3'
 }
