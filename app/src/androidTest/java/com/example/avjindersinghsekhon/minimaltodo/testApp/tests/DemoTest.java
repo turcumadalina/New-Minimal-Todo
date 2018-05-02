@@ -31,4 +31,13 @@ public class DemoTest extends EspressoTestBase {
 
         onView(allOf(withId(R.id.toDoListItemTextview), withText("B"), isCompletelyDisplayed())).check(matches(isDisplayed()));
     }
+
+    @Test
+    public void testAddItems2() {
+        onView(withId(R.id.addToDoItemFAB)).perform(click());
+
+        onView(withId(R.id.userToDoEditText)).perform(typeText("a"));
+
+        onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
+    }
 }
