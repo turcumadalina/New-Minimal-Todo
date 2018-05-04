@@ -1,4 +1,4 @@
-package com.example.avjindersinghsekhon.minimaltodo.testApp.tests;
+package com.example.avjindersinghsekhon.minimaltodo.testApp.tests.tests;
 
 import com.example.avjindersinghsekhon.minimaltodo.R;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.allOf;
 public class DemoTest extends EspressoTestBase {
 
     @Test
-    public void testAddItems() {
+    public void testAddItem() {
         onView(withId(R.id.addToDoItemFAB)).perform(click());
 
         onView(withId(R.id.userToDoEditText)).perform(typeText("a"));
@@ -40,4 +40,14 @@ public class DemoTest extends EspressoTestBase {
 
         onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
     }
+
+    @Test
+    public void testAddItems3() {
+        onView(withId(R.id.addToDoItemFAB)).perform(click());
+
+        onView(withId(R.id.userToDoEditText)).perform(typeText("a"));
+
+        onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
+    }
+
 }

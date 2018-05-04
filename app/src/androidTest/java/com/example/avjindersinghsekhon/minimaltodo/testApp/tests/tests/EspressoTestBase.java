@@ -1,4 +1,4 @@
-package com.example.avjindersinghsekhon.minimaltodo.testApp.tests;
+package com.example.avjindersinghsekhon.minimaltodo.testApp.tests.tests;
 
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
