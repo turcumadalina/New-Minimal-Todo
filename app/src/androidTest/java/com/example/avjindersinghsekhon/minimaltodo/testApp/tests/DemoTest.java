@@ -17,27 +17,25 @@ public class DemoTest extends EspressoTestBase {
 
     @Test
     public void testAddItems() {
+        // Step: Click add button
         onView(withId(R.id.addToDoItemFAB)).perform(click());
 
+        // Step: Type name for a new item
         onView(withId(R.id.userToDoEditText)).perform(typeText("a"));
 
+        // Step: Click FloatingActionButton
         onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
 
+        // Step: Click add button
         onView(withId(R.id.addToDoItemFAB)).perform(click());
 
+        // Step: Type name for a new item
         onView(withId(R.id.userToDoEditText)).perform(typeText("b"));
 
+        // Step: Click FloatingActionButton
         onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
 
+        // Verify: Second item is displayed
         onView(allOf(withId(R.id.toDoListItemTextview), withText("B"), isCompletelyDisplayed())).check(matches(isDisplayed()));
-    }
-
-    @Test
-    public void testAddItems2() {
-        onView(withId(R.id.addToDoItemFAB)).perform(click());
-
-        onView(withId(R.id.userToDoEditText)).perform(typeText("a"));
-
-        onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
     }
 }
