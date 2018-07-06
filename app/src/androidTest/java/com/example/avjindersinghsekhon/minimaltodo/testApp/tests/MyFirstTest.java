@@ -27,7 +27,15 @@ public class MyFirstTest {
         onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
 
         // Step: Click add button
-        onView(withId(R.id.addToDoItemFAB)).perform(click());
+        onView(withText(R.string.app_name)).perform(click());
+        // Step: Type name for a new item
+        onView(withId(R.id.userToDoEditText)).perform(typeText("b"));
+
+        // Step: Click FloatingActionButton
+        onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
+
+        // Verify: Second item is displayed
+        onView(allOf(withId(R.id.toDoListItemTextview), withText("B"), isCompletelyDisplayed())).check(matches(isDisplayed()));
 
     }
 }
