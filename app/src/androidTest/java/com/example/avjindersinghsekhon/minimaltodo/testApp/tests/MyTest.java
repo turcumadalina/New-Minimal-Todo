@@ -33,7 +33,7 @@ public class MyTest {
         onView(withId(R.id.userToDoEditText)).perform(typeText("b"));
 
         // Step: Click FloatingActionButton
-        onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
+        onView(withText(R.string.app_name)).perform(click());
 
         // Verify: Second item is displayed
         onView(allOf(withId(R.id.toDoListItemTextview), withText("B"), isCompletelyDisplayed())).check(matches(isDisplayed()));
