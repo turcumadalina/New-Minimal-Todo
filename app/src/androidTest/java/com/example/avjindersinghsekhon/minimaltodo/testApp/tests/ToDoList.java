@@ -10,17 +10,22 @@ import org.junit.Test;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.PositionAssertions.isAbove;
+import static android.support.test.espresso.assertion.PositionAssertions.isBelow;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasSibling;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.StringStartsWith.startsWith;
 
 public class ToDoList extends EspressoTestBase {
 
@@ -113,19 +118,33 @@ public class ToDoList extends EspressoTestBase {
         onView(allOf(withId(R.id.makeToDoFloatingActionButton))).check(matches(isDisplayed()));
 
         // Step 3.Close keyboard
+
+        onView(isRoot()).perform(click(closeSoftKeyboard()));
+
         // Expected Result : EditText is displayed as a descendent of a LinearLayout “Remind me” text is displayed between two buttons
 
-
         // Step 4. Add new item: "MY TODO"(uppercase)
+
+        onView(withId(R.id.userToDoEditText)).perform(typeText("MY TODO"));
+
         // Expected Result : "MY TODO" is displayed above "Remind me"
 
+        onView(withText("MY TODO")).check(isAbove(withText(R.string.remind_me)));
 
         // Step 5. Turn the switch On
+
+        onView(allOf(withId(R.id.toDoHasDateSwitchCompat))).perform(click());
+
         // Expected Result : Text starting with "Reminder set" is displayed
 
+        onView(withText(startsWith("Reminder set"))).check(matches(isDisplayed()));
 
         // Step 6.Click "FloatingActionButton" button
+
+        onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
+
         // Expected Result : The date displayed when you added "MY TODO" is now visible below this item
 
+        onView(withId(R.id.todoListItemTimeTextView)).check(isBelow(withId(R.id.toDoListItemTextview)));
 
     }
