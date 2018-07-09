@@ -1,6 +1,7 @@
 package com.example.avjindersinghsekhon.minimaltodo.testApp.tests;
 
 import android.support.v7.widget.LinearLayoutCompat;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -14,9 +15,12 @@ import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.PositionAssertions.isAbove;
 import static android.support.test.espresso.assertion.PositionAssertions.isBelow;
+import static android.support.test.espresso.assertion.PositionAssertions.isLeftOf;
+import static android.support.test.espresso.assertion.PositionAssertions.isRightOf;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasSibling;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
+import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -121,7 +125,17 @@ public class ToDoList extends EspressoTestBase {
 
         onView(isRoot()).perform(click(closeSoftKeyboard()));
 
-        // Expected Result : EditText is displayed as a descendent of a LinearLayout “Remind me” text is displayed between two buttons
+        // Expected Result : EditText is displayed as a descendent of a LinearLayout
+
+        onView(allOf(is(instanceOf(EditText.class)), isDescendantOfA(withId(R.id.editTextParentLinearLayout)))).check(matches(isDisplayed()));
+
+        //“Remind me” text is displayed between two buttons
+
+        onView((withText(R.string.remind_me))).check(isLeftOf(withId(R.id.toDoHasDateSwitchCompat)));
+
+        // onView(withId(R.id.userToDoRemindMeTextView))
+        
+        onView((withText(R.string.remind_me))).check(isRightOf(withId(R.id.userToDoReminderIconImageButton)));
 
         // Step 4. Add new item: "MY TODO"(uppercase)
 
@@ -148,3 +162,4 @@ public class ToDoList extends EspressoTestBase {
         onView(withId(R.id.todoListItemTimeTextView)).check(isBelow(withId(R.id.toDoListItemTextview)));
 
     }
+}
