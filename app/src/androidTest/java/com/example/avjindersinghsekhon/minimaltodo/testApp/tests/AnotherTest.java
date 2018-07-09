@@ -40,6 +40,11 @@ import static android.support.test.espresso.assertion.PositionAssertions.isAbove
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.startsWith;
+import android.widget.TextView;
+import static android.support.test.espresso.Espresso.onData;
+import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
+import android.support.test.espresso.web.model.Atom;
+
 
 
 public class AnotherTest extends EspressoTestBase {
@@ -104,7 +109,7 @@ public class AnotherTest extends EspressoTestBase {
         onView(withId(R.id.userToDoRemindMeTextView)).check(isRightOf(withId(R.id.userToDoReminderIconImageButton)));
 
         // Step: Add new item: "MY_TODO" (uppercase)
-        onView(withId(R.id.userToDoEditText)).perform(typeText("MY TODO"));
+        onView(withId(R.id.userToDoEditText)).perform(typeText("my todo".toUpperCase()));
 
         // Verify: "MY_TODO" is displayed above "Remind me"
         onView(withText("MY TODO")).check(isAbove(withText(R.string.remind_me)));
@@ -114,13 +119,15 @@ public class AnotherTest extends EspressoTestBase {
 
         // Verify: Text starting with "Reminder set" is displayed
         onView(withText(startsWith("Reminder set"))).check(matches(isDisplayed()));
+        String theFirstDate = Helpers.getText(withId(R.id.newToDoDateTimeReminderTextView));
 
         // Step: Click "FloatingActionButton" button
         onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
 
         // Verify: The date displayed when you added "MY_TODO" is now visible below this item
         onView(withId(R.id.todoListItemTimeTextView)).check(isBelow(withId(R.id.toDoListItemTextview)));
-
+        String theSecondDate = Helpers.getText(withId(R.id.todoListItemTimeTextView));
+        String theNewFirstDate = Helpers.substring(theFirstDate);
+        theNewFirstDate.equals(theSecondDate);
     }
 }
-
