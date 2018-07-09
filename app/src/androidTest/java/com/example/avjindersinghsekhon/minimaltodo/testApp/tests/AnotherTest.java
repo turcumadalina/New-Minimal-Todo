@@ -47,8 +47,8 @@ public class AnotherTest extends EspressoTestBase {
     public void testViewItems() {
 
         // Verify: “Minimal” and “You don’t have any todos” texts are visible
-        onView(allOf(withText(R.string.app_name))).check(matches(isDisplayed()));
-        onView(allOf(withText(R.string.no_to_dos))).check(matches(isDisplayed()));
+        onView(withText(R.string.app_name)).check(matches(isDisplayed()));
+        onView(withText(R.string.no_to_dos)).check(matches(isDisplayed()));
 
         // Verify: “Minimal” text is displayed in a toolbar
         onView(allOf(withParent(withId(R.id.toolbar)), withText(R.string.app_name), isCompletelyDisplayed())).check(matches(isDisplayed()));
@@ -68,7 +68,7 @@ public class AnotherTest extends EspressoTestBase {
     @Test
     public void buttonsValidation() {
         // Verify: “Minimal” text is displayed
-        onView(allOf(withText(R.string.app_name))).check(matches(isDisplayed()));
+        onView(withText(R.string.app_name)).check(matches(isDisplayed()));
 
         // Step: Click "Add" button
         onView(withId(R.id.addToDoItemFAB)).perform(click());
@@ -80,13 +80,13 @@ public class AnotherTest extends EspressoTestBase {
         onView(allOf(is(instanceOf(ImageButton.class)), withParent(withId(R.id.toolbar)))).perform(click());
 
         // Verify: “You don’t have any todos” text is visible
-        onView(allOf(withText(R.string.no_to_dos))).check(matches(isDisplayed()));
+        onView(withText(R.string.no_to_dos)).check(matches(isDisplayed()));
     }
 
     @Test
     public void addNewItem() {
         // Verify: "Minimal" text is visible
-        onView(allOf(withText(R.string.app_name))).check(matches(isDisplayed()));
+        onView(withText(R.string.app_name)).check(matches(isDisplayed()));
 
         // Step: Click "Add" button
         onView(withId(R.id.addToDoItemFAB)).perform(click());
@@ -100,8 +100,8 @@ public class AnotherTest extends EspressoTestBase {
         // Verify: EditText is displayed as a descendent of a LinearLayout
         // “Remind me” text is displayed between two buttons
         onView(allOf((withId(R.id.userToDoEditText)), isDescendantOfA(withId(R.id.editTextParentLinearLayout)))).check(matches(isDisplayed()));
-        onView((withId(R.id.userToDoRemindMeTextView))).check(isLeftOf(withId(R.id.toDoHasDateSwitchCompat)));
-        onView((withId(R.id.userToDoRemindMeTextView))).check(isRightOf(withId(R.id.userToDoReminderIconImageButton)));
+        onView(withId(R.id.userToDoRemindMeTextView)).check(isLeftOf(withId(R.id.toDoHasDateSwitchCompat)));
+        onView(withId(R.id.userToDoRemindMeTextView)).check(isRightOf(withId(R.id.userToDoReminderIconImageButton)));
 
         // Step: Add new item: "MY_TODO" (uppercase)
         onView(withId(R.id.userToDoEditText)).perform(typeText("MY TODO"));
