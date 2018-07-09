@@ -90,7 +90,7 @@ public class StartTheApp extends EspressoTestBase {
         onView(withText(R.string.remind_me)).check(isLeftOf(withId(R.id.toDoHasDateSwitchCompat)));
 
         // Step: Add new item: "MY_TODO" (uppercase)
-        onView(withId(R.id.userToDoEditText)).perform(typeText("MY TODO"));
+        onView(withId(R.id.userToDoEditText)).perform(typeText("my todo".toUpperCase()));
 
         // Verify: "MY_TODO" is displayed above "Remind me"
         onView(withText("MY TODO")).check(isAbove(withText(R.string.remind_me)));
@@ -101,10 +101,17 @@ public class StartTheApp extends EspressoTestBase {
         // Verify: Text starting with "Reminder set" is displayed
         onView(withText(startsWith("Reminder set"))).check(matches(isDisplayed()));
 
+        // Verify: The data format
+        String firstDate = Helpers.getText(withId(R.id.newToDoDateTimeReminderTextView));
+
         // Step: Click "FloatingActionButton" button
         onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
 
         // Verify: The date displayed when you added "MY_TODO" is now visible below this item
-        onView(withId(R.id.todoListItemTimeTextView)).check(isBelow(withId(R.id.toDoListItemTextview)));
+        String secondDate = Helpers.getText(withId(R.id.todoListItemTimeTextView));
+        String newFirstDate = Helpers.substring(firstDate);
+        if(newFirstDate.equals(secondDate)){
+            onView(withId(R.id.todoListItemTimeTextView)).check(isBelow(withId(R.id.toDoListItemTextview)));
+        }
     }
 }
