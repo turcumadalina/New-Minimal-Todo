@@ -125,9 +125,10 @@ public class AnotherTest extends EspressoTestBase {
         onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
 
         // Verify: The date displayed when you added "MY_TODO" is now visible below this item
-        onView(withId(R.id.todoListItemTimeTextView)).check(isBelow(withId(R.id.toDoListItemTextview)));
         String theSecondDate = Helpers.getText(withId(R.id.todoListItemTimeTextView));
         String theNewFirstDate = Helpers.substring(theFirstDate);
-        theNewFirstDate.equals(theSecondDate);
+        if(theNewFirstDate.equals(theSecondDate)) {
+            onView(withId(R.id.todoListItemTimeTextView)).check(isBelow(withId(R.id.toDoListItemTextview)));
+        }
     }
 }
