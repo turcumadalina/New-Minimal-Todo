@@ -1,165 +1,107 @@
 package com.example.avjindersinghsekhon.minimaltodo.testApp.tests;
 
-import android.support.v7.widget.LinearLayoutCompat;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.support.test.espresso.Espresso;
 
-import com.example.avjindersinghsekhon.minimaltodo.R;
-
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.assertion.PositionAssertions.isAbove;
-import static android.support.test.espresso.assertion.PositionAssertions.isBelow;
-import static android.support.test.espresso.assertion.PositionAssertions.isLeftOf;
-import static android.support.test.espresso.assertion.PositionAssertions.isRightOf;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.hasSibling;
-import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
-import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withParent;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.StringStartsWith.startsWith;
+import static junit.framework.Assert.assertTrue;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ToDoList extends EspressoTestBase {
 
     @Test
-    public void HomePageValidation() {
+    public void testAHomePageValidation() {
 
-        // Step 1.Start the app :
+        // Step 1. Start the app
+
         // Expected Result 1."Minimal" text is visible
-        // ->textul "Minimal"(strings.xml)      ->verificarea(ViewAssetions), Da
-
-        onView(withText(R.string.app_name)).check(matches(isDisplayed()));
+        assertTrue("Minimal text is not displayed.", Home.isMinimalVisible());
 
         // Expected Result 1.“You don’t have any todos” text is visible
-        // -> textul ""(strings.xml)       ->verificarea(ViewAssetions), Da
-
-        onView(withText(R.string.no_to_dos)).check(matches(isDisplayed()));
+        assertTrue("You don't have any todos text is not displayed.", Home.isYouDontHaveAnyTodosVisible());
 
         // Expected Result 2.“Minimal” text is displayed in a toolbar
-        // -> parintele direct al lui minimal este toolbar , "Minimal" este in toolbar?
-        // ->parintele al carui id este toolbar , contine textul "Minimal"(strings.xml), Da
-
-        onView(allOf(withParent(withId(R.id.toolbar)), (withText(R.string.app_name)))).check(matches(isDisplayed()));
+        assertTrue("Minimal text is not displayed in toolbar.", Home.isMinimalVisibleInToolbar());
 
         // Expected Result 3. An image is displayed above the “You don’t have any todos” text
-        // -> se iau toate instantele clasei ImageView,a caror parinte este toDoEmptyView(LinearLayout->parintele direct)
-        //                                                                                -> se verifica daca imaginea este deasupra textului(strings.xml)
-
-        onView(allOf(is(instanceOf(ImageView.class)), withParent(withId(R.id.toDoEmptyView)))).check((isAbove(withText(R.string.no_to_dos))));
+        assertTrue("You don't have any todos text is not displayed above that image.", Home.isAboveText());
 
         // Expected Result 4."Add" button is displayed and clickable
-        // id-ul (UI automator)
-
-        onView(withId(R.id.addToDoItemFAB)).check(matches((isDisplayed())));
-        onView(withId(R.id.addToDoItemFAB)).check(matches(isClickable()));
+        assertTrue("Add button is not displayed.", Home.isAddButtonVisible());
+        assertTrue("Add button is not clickable.", Home.isAddButtonClickable());
 
         // Expected Result 5.“More options” button is displayed and it has a sibling with the text "Minimal"
-        // -> se verifica daca butonul "More options" este in toolbar, unde este si textul "Minimal"
-
-        onView(allOf(is(instanceOf(ImageView.class)), withParent(withId(R.id.toolbar)), withText(R.string.app_name))).check(matches(isDisplayed()));
-
-        // -> se iau in considerare doar obiectele din toolbar si se verifica daca textul "Minimal" si butonul "More options" sunt vecine
-
-        onView(allOf(withParent(withId(R.id.toolbar)), instanceOf(LinearLayoutCompat.class), hasSibling(withText(R.string.app_name)))).check(matches((isDisplayed())));
-
+        assertTrue("More options button and Minimal text is not displayed.", Home.isMoreOptionsSiblingWithMinimalVisible());
     }
 
     @Test
-    public void AddButtonsValidation() {
+    public void testBAddButtonsValidation() {
         // Step 1.Start the app
-        // Expected Result : “Minimal” text is displayed
 
-        onView(withText(R.string.app_name)).check(matches(isDisplayed()));
+        //Expected Result : “Minimal” text is displayed
+        assertTrue("Minimal text is not displayed.", Home.isMinimalVisible());
 
         // Step 2. Click "Add" button
-
-        onView((withId(R.id.addToDoItemFAB))).perform(click());
+        AddItem.clickAddButton();
 
         // Expected Result : "X" button is visible
-        // ->id-ul butonului este addToDoItemFab (UI automator)
-        // -> butonul X este in toolbar
-
-        onView(allOf(is(instanceOf(ImageButton.class)), withParent(withId(R.id.toolbar)))).check(matches((isDisplayed())));
+        assertTrue("X button is not displayed.", AddItem.isXButtonVisible());
 
         // Step 3. Click "X" button
-
-        onView(allOf(is(instanceOf(ImageButton.class)), withParent((withId(R.id.toolbar))))).perform(click());
+        AddItem.clickXButton();
 
         // Expected Result : “You don’t have any todos” text is visible
-        // ->display-ul initial
-
-        onView((allOf(withText(R.string.no_to_dos)))).check(matches(isDisplayed()));
-
+        assertTrue("You don't have any todos text is not visible.", Home.isYouDontHaveAnyTodosVisible());
     }
 
-
     @Test
-    public void AddNewItemValidation() {
+    public void testCAddNewItemValidation() {
         // Step 1.Start the app
         // Expected Result : “Minimal” text is displayed
-
-        onView(withText(R.string.app_name)).check(matches(isDisplayed()));
+        assertTrue("Minimal text is not displayed.", Home.isMinimalVisible());
+        assertTrue("Minimal text is not displayed in toolbar.", Home.isMinimalVisibleInToolbar());
 
         // Step 2. Click "Add" button
-
-        onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
+        AddItem.clickAddButton();
 
         // Expected Result: FloatingActionButton is visible
-        // ->id-ul butonului este makeToDoFloatingActionButton
-
-        onView(allOf(withId(R.id.makeToDoFloatingActionButton))).check(matches(isDisplayed()));
+        assertTrue("FloatingActionButton is not displayed.", AddItem.isFloatingActionButtonVisible());
 
         // Step 3.Close keyboard
-
-        onView(isRoot()).perform(click(closeSoftKeyboard()));
+        Espresso.closeSoftKeyboard();
 
         // Expected Result : EditText is displayed as a descendent of a LinearLayout
-
-        onView(allOf(is(instanceOf(EditText.class)), isDescendantOfA(withId(R.id.editTextParentLinearLayout)))).check(matches(isDisplayed()));
+        assertTrue("EditText is not displayed as a descendent of a LinearLayout.", AddItem.isEditTextVisible());
 
         //“Remind me” text is displayed between two buttons
-
-        onView((withText(R.string.remind_me))).check(isLeftOf(withId(R.id.toDoHasDateSwitchCompat)));
-
-        // onView(withId(R.id.userToDoRemindMeTextView))
-        
-        onView((withText(R.string.remind_me))).check(isRightOf(withId(R.id.userToDoReminderIconImageButton)));
+        assertTrue("Reminder me is not displayed to left.", Home.isLeftOfButton());
+        assertTrue("Reminder me is not displayed to right.", Home.isRightOfButton());
 
         // Step 4. Add new item: "MY TODO"(uppercase)
-
-        onView(withId(R.id.userToDoEditText)).perform(typeText("MY TODO"));
+        AddItem.typeText();
 
         // Expected Result : "MY TODO" is displayed above "Remind me"
-
-        onView(withText("MY TODO")).check(isAbove(withText(R.string.remind_me)));
+        assertTrue("", AddItem.isAboveText());
 
         // Step 5. Turn the switch On
-
-        onView(allOf(withId(R.id.toDoHasDateSwitchCompat))).perform(click());
+        AddItem.clickSwitchOn();
 
         // Expected Result : Text starting with "Reminder set" is displayed
+        assertTrue("Reminder set is not displayed.", AddItem.isReminderSetVisible());
 
-        onView(withText(startsWith("Reminder set"))).check(matches(isDisplayed()));
+        // String date1 = Helpers.getText(withId(newToDoDateTimeReminderTextView));
 
         // Step 6.Click "FloatingActionButton" button
+        AddItem.clickFloatActionButton();
 
-        onView(withId(R.id.makeToDoFloatingActionButton)).perform(click());
+        // String date2 = Helpers.getText(withId(R.id.todoListItemTimeTextView));
 
         // Expected Result : The date displayed when you added "MY TODO" is now visible below this item
+        assertTrue("The date is not displayed below MY TODO text.", AddItem.isBelowItem());
 
-        onView(withId(R.id.todoListItemTimeTextView)).check(isBelow(withId(R.id.toDoListItemTextview)));
+        // boolean result2 = date1.equals(date2);
 
     }
 }
