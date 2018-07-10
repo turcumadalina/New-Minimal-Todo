@@ -3,13 +3,16 @@ package com.example.avjindersinghsekhon.minimaltodo.testApp.tests;
 import android.support.test.espresso.Espresso;
 
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import static junit.framework.Assert.assertTrue;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AnotherTest extends EspressoTestBase {
     @Test
-    public void testViewItems() {
+    public void testAViewItems() {
 
         // Verify: “Minimal” and “You don’t have any todos” texts are visible
         Assert.assertTrue("Minimal is not visible", Home.isMinimalVisible());
@@ -31,7 +34,7 @@ public class AnotherTest extends EspressoTestBase {
     }
 
     @Test
-    public void buttonsValidation() {
+    public void testBbuttonsValidation() {
         // Verify: “Minimal” text is displayed
         Assert.assertTrue("Minimal is not visible", Home.isMinimalVisible());
 
@@ -49,7 +52,7 @@ public class AnotherTest extends EspressoTestBase {
     }
 
     @Test
-    public void addNewItem() {
+    public void testCAddNewItem() {
         // Verify: "Minimal" text is visible
         assertTrue("Minimal is not visible", Home.isMinimalVisible());
 
@@ -57,7 +60,7 @@ public class AnotherTest extends EspressoTestBase {
         Home.clickAddButton();
 
         // Verify: FloatingActionButton is visible
-        assertTrue("FloatinActionButton is not visible", AddToDo.isFloatingActionButtonVisible());
+        assertTrue("FloatingActionButton is not visible", AddToDo.isFloatingActionButtonVisible());
 
         // Step: Close keyboard
         Espresso.closeSoftKeyboard();
@@ -79,7 +82,7 @@ public class AnotherTest extends EspressoTestBase {
 
         // Verify: Text starting with "Reminder set" is displayed
         assertTrue("Reminder set is not displayed", AddToDo.isReminderSetDisplayed());
-        String theFirstDate = Home.getFirstDate();
+        String theFirstDate = AddToDo.getFirstDate();
 
         // Step: Click "FloatingActionButton" button
         AddToDo.clickFloatingActionButton();

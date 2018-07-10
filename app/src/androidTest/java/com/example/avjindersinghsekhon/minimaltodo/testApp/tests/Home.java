@@ -49,8 +49,4 @@ public class Home {
     public static boolean isAddButtonClickable() {
         return Helpers.isElemClickable(withId(R.id.addToDoItemFAB));
     }
-
-    public static String getFirstDate() {
-        return Helpers.getText(withId(R.id.newToDoDateTimeReminderTextView));
-    }
 }

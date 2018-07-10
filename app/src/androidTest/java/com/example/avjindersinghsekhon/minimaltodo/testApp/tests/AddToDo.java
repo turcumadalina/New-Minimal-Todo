@@ -1,7 +1,9 @@
 package com.example.avjindersinghsekhon.minimaltodo.testApp.tests;
 
 import android.widget.ImageButton;
+
 import com.example.avjindersinghsekhon.minimaltodo.R;
+
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
@@ -57,10 +59,14 @@ public class AddToDo {
     }
 
     public static void typeToDo(String args) {
-        Helpers.performUppercase(withId(R.id.userToDoEditText),args);
+        Helpers.performUppercase(withId(R.id.userToDoEditText), args);
     }
 
     public static String getSecondDate() {
         return Helpers.getText(withId(R.id.todoListItemTimeTextView));
+    }
+
+    public static String getFirstDate() {
+        return Helpers.getText(withId(R.id.newToDoDateTimeReminderTextView));
     }
 }

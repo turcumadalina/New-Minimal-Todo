@@ -7,6 +7,10 @@ import android.widget.TextView;
 
 import org.hamcrest.Matcher;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
@@ -43,13 +47,17 @@ public class Helpers {
         return stringHolder[0];
     }
 
-
     public static String substring(String str) {
-        //String str= new String();
-        String day = str.substring(16, 18);
-        String month = str.substring(19, 22);
-        String year = str.substring(24, 28);
-        return (month + " " + day + "," + year);
+        String input = str.substring(16, 29);
+        SimpleDateFormat parser = new SimpleDateFormat("dd MMM,yyyy");
+        Date date = null;
+        try {
+            date = parser.parse(input);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy");
+        return formatter.format(date);
     }
 
     public static void clickEl(Matcher<View> matcher) {
