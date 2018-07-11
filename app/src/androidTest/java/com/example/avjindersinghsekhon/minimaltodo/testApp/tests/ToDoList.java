@@ -104,6 +104,5 @@ public class ToDoList extends EspressoTestBase {
         assertTrue("The date is not displayed below MY TODO text.", AddItem.isDateBelowToMyTodoText());
 
         // boolean result2 = date1.equals(date2);
-
     }
 }

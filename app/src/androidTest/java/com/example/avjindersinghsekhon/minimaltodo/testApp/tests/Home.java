@@ -50,5 +50,4 @@ public class Home {
     public static boolean isRemindeMeRightOfDateSwitch() {
         return Helpers.isFirstMatcherToTheRightOfSecondMatcher(withText(R.string.remind_me), withId(R.id.userToDoReminderIconImageButton));
     }
-
 }

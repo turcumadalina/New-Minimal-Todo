@@ -53,9 +53,7 @@ public class Helpers {
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             return false;
-
         }
-
     }
 
     public static boolean isUIObjectClickable(Matcher<View> matcher) {
@@ -66,9 +64,7 @@ public class Helpers {
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             return false;
-
         }
-
     }
 
     public static void clickAction(Matcher<View> matcher) {
@@ -83,9 +79,7 @@ public class Helpers {
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             return false;
-
         }
-
     }
 
     public static boolean isFirstMatcherToTheLeftOfSecondMatcher(Matcher<View> matcher1, Matcher<View> matcher2) {
@@ -96,9 +90,7 @@ public class Helpers {
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             return false;
-
         }
-
     }
 
     public static boolean isFirstMatcherToTheRightOfSecondMatcher(Matcher<View> matcher1, Matcher<View> matcher2) {
@@ -109,9 +101,7 @@ public class Helpers {
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             return false;
-
         }
-
     }
 
     public static boolean isFirstMatcherBelowSecondMatcher(Matcher<View> matcher1, Matcher<View> matcher2) {
@@ -122,9 +112,7 @@ public class Helpers {
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             return false;
-
         }
-
     }
 
     public static void typeUpperCaseTextAction(Matcher<View> matcher, String args) {
