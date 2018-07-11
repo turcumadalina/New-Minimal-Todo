@@ -2,13 +2,16 @@ package com.example.avjindersinghsekhon.minimaltodo.testApp.tests;
 
 import android.support.test.espresso.Espresso;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import static junit.framework.Assert.assertTrue;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class StartTheApp extends EspressoTestBase {
     @Test
-    public void homePageValidation() {
+    public void testAhomePageValidation() {
         // Verify: “Minimal” and “You don’t have any todos” texts are visible
         assertTrue("Minimal is not displayed", Home.isMinimalVisible());
         assertTrue("You don’t have any todos is not displayed", Home.isNoToDosText());
@@ -29,7 +32,7 @@ public class StartTheApp extends EspressoTestBase {
     }
 
     @Test
-    public void buttonsValidation() {
+    public void testBbuttonsValidation() {
         // Verify: “Minimal” text is displayed
         assertTrue("Minimal is not displayed", Home.isMinimalVisible());
 
@@ -47,7 +50,7 @@ public class StartTheApp extends EspressoTestBase {
     }
 
     @Test
-    public void addItem() {
+    public void testCaddItem() {
         // Verify: "Minimal" text is visible
         assertTrue("Minimal is not displayed", Home.isMinimalVisible());
 
