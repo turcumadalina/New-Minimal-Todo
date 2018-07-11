@@ -63,7 +63,7 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
 
         // Verify: EditText is displayed as a descendent of a LinearLayout,
         //         “Remind me” text is displayed between two buttons
-        assertTrue("EditText is not displayed", AddItem.isEditText());
+        assertTrue("EditText is not displayed", AddItem.isEditTextDisplayd());
         assertTrue("Remind me is not to the left of button", AddItem.isRemindLeftOfSwitchButton());
         assertTrue("Remind me is not to the left of button", AddItem.isRemindRightOfImageButton());
 
@@ -77,7 +77,7 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
         AddItem.clickButtonToSwitchOnOrOff();
 
         // Verify: Text starting with "Reminder set" is displayed
-        assertTrue("Reminder set is not displayed", AddItem.isReminderSet());
+        assertTrue("Reminder set is not displayed", AddItem.isReminderSetDisplayd());
 
         // Verify: The data format
         String firstDate = AddItem.getData();

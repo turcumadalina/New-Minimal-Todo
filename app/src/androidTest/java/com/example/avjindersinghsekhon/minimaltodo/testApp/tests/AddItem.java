@@ -27,7 +27,7 @@ public class AddItem {
         return Helpers.checkIfUIObjectIsVisible(withId(R.id.toDoCustomTextInput));
     }
 
-    public static boolean isEditText() {
+    public static boolean isEditTextDisplayd() {
         return Helpers.checkIfUIObjectIsVisible(allOf(is(instanceOf(EditText.class)), withParent(withId(R.id.toDoCustomTextInput))));
     }
 
@@ -35,7 +35,7 @@ public class AddItem {
         Helpers.clickEl(withId(R.id.toDoHasDateSwitchCompat));
     }
 
-    public static boolean isReminderSet() {
+    public static boolean isReminderSetDisplayd() {
         return Helpers.checkIfUIObjectIsVisible(withText(startsWith("Reminder set")));
     }
 
