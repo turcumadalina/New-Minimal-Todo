@@ -15,38 +15,42 @@ import static org.hamcrest.Matchers.is;
 
 public class Home {
     public static boolean isMinimalVisible() {
-        return Helpers.isCheckDisplay(withText(R.string.app_name));
+        return Helpers.isObjectDisplayed(withText(R.string.app_name));
     }
 
     public static boolean isNotTodosVisible() {
-        return Helpers.isCheckDisplay(withText(R.string.no_to_dos));
+        return Helpers.isObjectDisplayed(withText(R.string.no_to_dos));
     }
 
     public static boolean isMinimalInToolbar() {
-        return Helpers.isCheckDisplay(allOf(withParent(withId(R.id.toolbar)), withText(R.string.app_name), isCompletelyDisplayed()));
+        return Helpers.isObjectDisplayed(allOf(withParent(withId(R.id.toolbar)), withText(R.string.app_name), isCompletelyDisplayed()));
     }
 
     public static boolean isAddButtonDisplayed() {
-        return Helpers.isCheckDisplay(withId(R.id.addToDoItemFAB));
+        return Helpers.isObjectDisplayed(withId(R.id.addToDoItemFAB));
     }
 
     public static void clickAddButton() {
-        Helpers.clickEl(withId(R.id.addToDoItemFAB));
+        Helpers.clickElement(withId(R.id.addToDoItemFAB));
     }
 
     public static boolean isMoreOptionsDisplayed() {
-        return Helpers.isCheckDisplay(allOf(is(instanceOf(ImageView.class)), withParent(withParent(withId(R.id.toolbar)))));
+        return Helpers.isObjectDisplayed(allOf(is(instanceOf(ImageView.class)), withParent(withParent(withId(R.id.toolbar)))));
     }
 
     public static boolean isMoreOptionSiblingMinimal() {
-        return Helpers.isCheckDisplay(allOf(withParent(withId(R.id.toolbar)), instanceOf(android.support.v7.widget.LinearLayoutCompat.class), hasSibling(withText(R.string.app_name))));
+        return Helpers.isObjectDisplayed(allOf(withParent(withId(R.id.toolbar)), instanceOf(android.support.v7.widget.LinearLayoutCompat.class), hasSibling(withText(R.string.app_name))));
     }
 
-    public static boolean isImageAbove() {
-        return Helpers.isTextAbove(allOf(is(instanceOf(ImageView.class)), withParent(withId(R.id.toDoEmptyView))), withText(R.string.no_to_dos));
+    public static boolean isImageAboveYouDontHaveTodos() {
+        return Helpers.isFirstObjectAboveSecondObject(allOf(is(instanceOf(ImageView.class)), withParent(withId(R.id.toDoEmptyView))), withText(R.string.no_to_dos));
     }
 
     public static boolean isAddButtonClickable() {
-        return Helpers.isElemClickable(withId(R.id.addToDoItemFAB));
+        return Helpers.isElementClickable(withId(R.id.addToDoItemFAB));
+    }
+
+    public static String getSecondDate() {
+        return Helpers.getText(withId(R.id.todoListItemTimeTextView));
     }
 }

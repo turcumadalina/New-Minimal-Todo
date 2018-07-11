@@ -10,45 +10,45 @@ import org.junit.runners.MethodSorters;
 import static junit.framework.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class AnotherTest extends EspressoTestBase {
+public class ViewItems_ButtonValidation_Test extends EspressoTestBase {
     @Test
     public void testAViewItems() {
 
         // Verify: “Minimal” and “You don’t have any todos” texts are visible
-        Assert.assertTrue("Minimal is not visible", Home.isMinimalVisible());
-        Assert.assertTrue("You don’t have any todos is not visible", Home.isNotTodosVisible());
+        assertTrue("Minimal is not visible", Home.isMinimalVisible());
+        assertTrue("You don’t have any todos is not visible", Home.isNotTodosVisible());
 
         // Verify: “Minimal” text is displayed in a toolbar
-        Assert.assertTrue("Minimal is not displayed in toolbar", Home.isMinimalInToolbar());
+        assertTrue("Minimal is not displayed in toolbar", Home.isMinimalInToolbar());
 
         // Verify: An image is displayed above the “You don’t have any todos” text
-        Assert.assertTrue("An image is not displayed above todo text", Home.isImageAbove());
+        assertTrue("An image is not displayed above todo text", Home.isImageAboveYouDontHaveTodos());
 
         // Verify: "Add" button is displayed and clickable
-        Assert.assertTrue("Add button is not displayed", Home.isAddButtonDisplayed());
-        Assert.assertTrue("Add button is not clickable", Home.isAddButtonClickable());
+        assertTrue("Add button is not displayed", Home.isAddButtonDisplayed());
+        assertTrue("Add button is not clickable", Home.isAddButtonClickable());
 
         // Verify: “More options” button is displayed and it has a sibling with the text "Minimal"
-        Assert.assertTrue("More options is not displayed", Home.isMoreOptionsDisplayed());
-        Assert.assertTrue("More options is nor sibling with Minimal", Home.isMoreOptionSiblingMinimal());
+        assertTrue("More options is not displayed", Home.isMoreOptionsDisplayed());
+        assertTrue("More options is nor sibling with Minimal", Home.isMoreOptionSiblingMinimal());
     }
 
     @Test
     public void testBbuttonsValidation() {
         // Verify: “Minimal” text is displayed
-        Assert.assertTrue("Minimal is not visible", Home.isMinimalVisible());
+        assertTrue("Minimal is not visible", Home.isMinimalVisible());
 
         // Step: Click "Add" button
         Home.clickAddButton();
 
         // Verify: "X" button is visible
-        Assert.assertTrue("Button X is not visible", AddToDo.isXButtonVisible());
+        assertTrue("Button X is not visible", AddToDo.isXButtonVisible());
 
         // Step: Click "X" button
         AddToDo.clickXButton();
 
         // Verify: “You don’t have any todos” text is visible
-        Assert.assertTrue("You don t have any todos in not visible", Home.isNotTodosVisible());
+        assertTrue("You don t have any todos in not visible", Home.isNotTodosVisible());
     }
 
     @Test
@@ -65,33 +65,35 @@ public class AnotherTest extends EspressoTestBase {
         // Step: Close keyboard
         Espresso.closeSoftKeyboard();
 
-        // Verify: EditText is displayed as a descendent of a LinearLayout
+        // Verify: EditText is displayed as a descendant of a LinearLayout
         // “Remind me” text is displayed between two buttons
-        assertTrue("EditText is not displayed as a descendent of a LinearLayout", AddToDo.isEditTextDescendantOfLinearLayout());
-        assertTrue("Remind me is not between two buttons", AddToDo.isLeft());
-        assertTrue("Remind me is not between two buttons", AddToDo.isRight());
+        assertTrue("EditText is not displayed as a descendant of a LinearLayout", AddToDo.isEditTextDescendantOfLinearLayout());
+        assertTrue("Remind me is not between two buttons", AddToDo.isLeftOfSwitchButton());
+        assertTrue("Remind me is not between two buttons", AddToDo.isRightOfIconImageButton());
 
         // Step: Add new item: "MY_TODO" (uppercase)
-        AddToDo.typeToDo("my todo");
+        AddToDo.typeToDoInUppercase("my todo");
 
         // Verify: "MY_TODO" is displayed above "Remind me"
-        assertTrue("My todo is not displayed above remind me", AddToDo.isToDoAbove());
+        assertTrue("My todo is not displayed above remind me", AddToDo.isToDoAboveRemindMe());
 
         // Step: Turn the switch On
-        AddToDo.turnSwitchOn();
+        AddToDo.turnSwitchOn_Off();
 
         // Verify: Text starting with "Reminder set" is displayed
         assertTrue("Reminder set is not displayed", AddToDo.isReminderSetDisplayed());
+
+        // Get the date from AddToDo screen
         String theFirstDate = AddToDo.getFirstDate();
 
         // Step: Click "FloatingActionButton" button
         AddToDo.clickFloatingActionButton();
 
         // Verify: The date displayed when you added "MY_TODO" is now visible below this item
-        String theSecondDate = AddToDo.getSecondDate();
-        String theNewFirstDate = Helpers.substring(theFirstDate);
+        String theSecondDate = Home.getSecondDate();
+        String theNewFirstDate = Helpers.dateFormat(theFirstDate);
         if (theNewFirstDate.equals(theSecondDate)) {
-            Assert.assertTrue("The date is not visible below", AddToDo.isBelow());
+            Assert.assertTrue("The date is not visible below", AddToDo.dateIsBelowToDo());
         }
     }
 }

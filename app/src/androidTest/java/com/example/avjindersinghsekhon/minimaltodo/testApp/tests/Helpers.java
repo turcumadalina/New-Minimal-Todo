@@ -47,8 +47,8 @@ public class Helpers {
         return stringHolder[0];
     }
 
-    public static String substring(String str) {
-        String input = str.substring(16, 29);
+    public static String dateFormat (String dateInput) {
+        String input = dateInput.substring(16, 29);
         SimpleDateFormat parser = new SimpleDateFormat("dd MMM,yyyy");
         Date date = null;
         try {
@@ -60,11 +60,11 @@ public class Helpers {
         return formatter.format(date);
     }
 
-    public static void clickEl(Matcher<View> matcher) {
+    public static void clickElement(Matcher<View> matcher) {
         onView(matcher).perform(click());
     }
 
-    public static boolean isCheckDisplay(Matcher<View> matcher) {
+    public static boolean isObjectDisplayed(Matcher<View> matcher) {
         try {
             onView(matcher).check(matches(isDisplayed()));
             return true;
@@ -73,7 +73,7 @@ public class Helpers {
         }
     }
 
-    public static boolean isTextAbove(Matcher<View> matcher, Matcher<View> matcher2) {
+    public static boolean isFirstObjectAboveSecondObject(Matcher<View> matcher, Matcher<View> matcher2) {
         try {
             onView(matcher).check(isAbove(matcher2));
             return true;
@@ -82,7 +82,7 @@ public class Helpers {
         }
     }
 
-    public static boolean isElemClickable(Matcher<View> matcher) {
+    public static boolean isElementClickable(Matcher<View> matcher) {
         try {
             onView(matcher).check(matches(isClickable()));
             return true;
@@ -91,7 +91,7 @@ public class Helpers {
         }
     }
 
-    public static boolean isTextLeft(Matcher<View> matcher, Matcher<View> matcher2) {
+    public static boolean isFirstObjectLeftOfSecondObject(Matcher<View> matcher, Matcher<View> matcher2) {
         try {
             onView(matcher).check(isLeftOf(matcher2));
             return true;
@@ -100,7 +100,7 @@ public class Helpers {
         }
     }
 
-    public static boolean isTextRight(Matcher<View> matcher, Matcher<View> matcher2) {
+    public static boolean isFirstObjectRightOfSecondObject(Matcher<View> matcher, Matcher<View> matcher2) {
         try {
             onView(matcher).check(isRightOf(matcher2));
             return true;
@@ -118,7 +118,7 @@ public class Helpers {
         }
     }
 
-    public static void performUppercase(Matcher<View> matcher, String args) {
-        onView(matcher).perform(typeText(args.toUpperCase()));
+    public static void TypeTextToUppercase(Matcher<View> matcher, String textInput) {
+        onView(matcher).perform(typeText(textInput.toUpperCase()));
     }
 }
