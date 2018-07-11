@@ -10,25 +10,26 @@ import static junit.framework.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MinimalAppElementsValitadion extends EspressoTestBase {
+
     @Test
     public void testAhomePageValidation() {
         // Verify: “Minimal” and “You don’t have any todos” texts are visible
         assertTrue("Minimal is not displayed", Home.isMinimalVisible());
-        assertTrue("You don’t have any todos is not displayed", Home.isNoToDosText());
+        assertTrue("You don’t have any todos is not displayed", Home.isNoToDosTextVisible());
 
         // Verify: “Minimal” text is displayed in a toolbar
-        assertTrue("Minimal is not displayed", Home.isMinimalInToolbar());
+        assertTrue("Minimal is not displayed", Home.isMinimalDisplayedInToolbar());
 
         // Verify: An image is displayed above the “You don’t have any todos” text
-        assertTrue("Image is not displayed above", Home.isImageAbove());
+        assertTrue("Image is not displayed above", Home.isImageAboveHomeText());
 
         // Verify: "Add" button is displayed and clickable
-        assertTrue("Add button is not displayd", Home.isAddButton());
+        assertTrue("Add button is not displayd", Home.isAddButtonVisivle());
         assertTrue("Add button is not clickable", Home.isAddButtonClickable());
 
         // Verify: “More options” button is displayed and it has a sibling with the text "Minimal"
-        assertTrue("More option is not displayd", Home.isMoreOptions());
-        assertTrue("More option doesen't have a sibling", Home.isMoreOptionSibling());
+        assertTrue("More option is not displayd", Home.isMoreOptionsVisible());
+        assertTrue("More option doesen't have a sibling", Home.isMoreOptionSiblingWithMinimalText());
     }
 
     @Test
@@ -46,8 +47,9 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
         AddItem.clickXButton();
 
         // Verify: “You don’t have any todos” text is visible
-        assertTrue("You don’t have any todos is not displayed", Home.isNoToDosText());
-        
+        assertTrue("You don’t have any todos is not displayed", Home.isNoToDosTextVisible());
+
+        // Step: Close keyboard
         Espresso.closeSoftKeyboard();
     }
 
@@ -88,10 +90,10 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
         AddItem.clickFloatingActionButton();
 
         // Verify: The date displayed when you added "MY_TODO" is now visible below this item
-        String secondDate = AddItem.getSecondData();
+        String secondDate = Home.getSecondData();
         String newFirstDate = Helpers.getDataFormat(firstDate);
         if (newFirstDate.equals(secondDate)) {
-            assertTrue("The date is not displayed below", Home.isDateBelow());
+            assertTrue("The date is not displayed below", Home.isDateBelowOfItemText());
         }
     }
 }

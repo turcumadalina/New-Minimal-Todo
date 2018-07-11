@@ -20,7 +20,7 @@ public class AddItem {
     }
 
     public static void clickXButton() {
-        Helpers.clickEl(allOf(is(instanceOf(ImageButton.class)), withParent(withId(R.id.toolbar))));
+        Helpers.clickElement(allOf(is(instanceOf(ImageButton.class)), withParent(withId(R.id.toolbar))));
     }
 
     public static boolean isFloatingActionButtonDisplayed() {
@@ -32,7 +32,7 @@ public class AddItem {
     }
 
     public static void clickButtonToSwitchOnOrOff() {
-        Helpers.clickEl(withId(R.id.toDoHasDateSwitchCompat));
+        Helpers.clickElement(withId(R.id.toDoHasDateSwitchCompat));
     }
 
     public static boolean isReminderSetDisplayd() {
@@ -40,27 +40,22 @@ public class AddItem {
     }
 
     public static void clickFloatingActionButton() {
-        Helpers.clickEl(withId(R.id.makeToDoFloatingActionButton));
+        Helpers.clickElement(withId(R.id.makeToDoFloatingActionButton));
     }
 
     public static boolean isRemindLeftOfSwitchButton() {
-        return Helpers.isRemindLeft(withText(R.string.remind_me), withId(R.id.toDoHasDateSwitchCompat));
+        return Helpers.isRemindLeftOfSwitchButton(withText(R.string.remind_me), withId(R.id.toDoHasDateSwitchCompat));
     }
 
     public static boolean isRemindRightOfImageButton() {
-        return Helpers.isRemindRight(withText(R.string.remind_me), withId(R.id.userToDoReminderIconImageButton));
+        return Helpers.isRemindRightOfImageButton(withText(R.string.remind_me), withId(R.id.userToDoReminderIconImageButton));
     }
 
     public static void addItemUppercase(String args) {
-        Helpers.addItemUppercase(withId(R.id.userToDoEditText), args);
+        Helpers.typeItemUppercase(withId(R.id.userToDoEditText), args);
     }
 
     public static String getData() {
         return Helpers.getText(withId(R.id.newToDoDateTimeReminderTextView));
     }
-
-    public static String getSecondData() {
-        return Helpers.getText(withId(R.id.todoListItemTimeTextView));
-    }
-
 }

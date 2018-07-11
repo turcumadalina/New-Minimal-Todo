@@ -31,7 +31,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 public class Helpers {
 
     public static boolean checkIfUIObjectIsVisible(Matcher<View> matcher) {
-
         try {
             onView(matcher).check(matches(isDisplayed()));
             return true;
@@ -41,7 +40,6 @@ public class Helpers {
     }
 
     public static boolean checkIfUIObjectIsClickable(Matcher<View> matcher) {
-
         try {
             onView(matcher).check(matches(isClickable()));
             return true;
@@ -50,7 +48,7 @@ public class Helpers {
         }
     }
 
-    public static boolean isUIObjectAbove(Matcher<View> matcher, Matcher<View> matcher2) {
+    public static boolean isUIObjectAboveAnotherObject(Matcher<View> matcher, Matcher<View> matcher2) {
         try {
             onView(matcher).check(isAbove(matcher2));
             return true;
@@ -59,7 +57,7 @@ public class Helpers {
         }
     }
 
-    public static boolean isUIObjectBelow(Matcher<View> matcher, Matcher<View> matcher2) {
+    public static boolean isUIObjectBelowAnotherObject(Matcher<View> matcher, Matcher<View> matcher2) {
         try {
             onView(matcher).check(isBelow(matcher2));
             return true;
@@ -68,7 +66,7 @@ public class Helpers {
         }
     }
 
-    public static boolean isRemindLeft(Matcher<View> matcher, Matcher<View> matcher2) {
+    public static boolean isRemindLeftOfSwitchButton(Matcher<View> matcher, Matcher<View> matcher2) {
         try {
             onView(matcher).check(isLeftOf(matcher2));
             return true;
@@ -77,7 +75,7 @@ public class Helpers {
         }
     }
 
-    public static boolean isRemindRight(Matcher<View> matcher, Matcher<View> matcher2) {
+    public static boolean isRemindRightOfImageButton(Matcher<View> matcher, Matcher<View> matcher2) {
         try {
             onView(matcher).check(isRightOf(matcher2));
             return true;
@@ -86,11 +84,11 @@ public class Helpers {
         }
     }
 
-    public static void addItemUppercase(Matcher<View> matcher, String args) {
-        onView(matcher).perform(typeText(args.toUpperCase()));
+    public static void typeItemUppercase(Matcher<View> matcher, String text) {
+        onView(matcher).perform(typeText(text.toUpperCase()));
     }
 
-    public static void clickEl(Matcher<View> matcher) {
+    public static void clickElement(Matcher<View> matcher) {
         onView(matcher).perform(click());
     }
 
