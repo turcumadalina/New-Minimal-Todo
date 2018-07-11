@@ -42,11 +42,11 @@ public class AddToDo {
         Helpers.clickElement(withId(R.id.toDoHasDateSwitchCompat));
     }
 
-    public static boolean isLeftOfSwitchButton() {
+    public static boolean isRemindMeLeftOfSwitchButton() {
         return Helpers.isFirstObjectLeftOfSecondObject(withId(R.id.userToDoRemindMeTextView), withId(R.id.toDoHasDateSwitchCompat));
     }
 
-    public static boolean isRightOfIconImageButton() {
+    public static boolean isRemindMeRightOfIconImageButton() {
         return Helpers.isFirstObjectRightOfSecondObject(withId(R.id.userToDoRemindMeTextView), withId(R.id.userToDoReminderIconImageButton));
     }
 
@@ -55,7 +55,7 @@ public class AddToDo {
     }
 
     public static boolean dateIsBelowToDo() {
-        return Helpers.isTextBelow(withId(R.id.todoListItemTimeTextView), withId(R.id.toDoListItemTextview));
+        return Helpers.isFirstObjectBelowSecondObject(withId(R.id.todoListItemTimeTextView), withId(R.id.toDoListItemTextview));
     }
 
     public static void typeToDoInUppercase(String itemName) {

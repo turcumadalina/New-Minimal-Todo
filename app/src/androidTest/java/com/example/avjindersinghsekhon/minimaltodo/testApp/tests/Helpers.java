@@ -109,7 +109,7 @@ public class Helpers {
         }
     }
 
-    public static boolean isTextBelow(Matcher<View> matcher, Matcher<View> matcher2) {
+    public static boolean isFirstObjectBelowSecondObject(Matcher<View> matcher, Matcher<View> matcher2) {
         try {
             onView(matcher).check(isBelow(matcher2));
             return true;

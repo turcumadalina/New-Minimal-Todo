@@ -68,8 +68,8 @@ public class ViewItems_ButtonValidation_Test extends EspressoTestBase {
         // Verify: EditText is displayed as a descendant of a LinearLayout
         // “Remind me” text is displayed between two buttons
         assertTrue("EditText is not displayed as a descendant of a LinearLayout", AddToDo.isEditTextDescendantOfLinearLayout());
-        assertTrue("Remind me is not between two buttons", AddToDo.isLeftOfSwitchButton());
-        assertTrue("Remind me is not between two buttons", AddToDo.isRightOfIconImageButton());
+        assertTrue("Remind me is not between two buttons", AddToDo.isRemindMeLeftOfSwitchButton());
+        assertTrue("Remind me is not between two buttons", AddToDo.isRemindMeRightOfIconImageButton());
 
         // Step: Add new item: "MY_TODO" (uppercase)
         AddToDo.typeToDoInUppercase("my todo");
