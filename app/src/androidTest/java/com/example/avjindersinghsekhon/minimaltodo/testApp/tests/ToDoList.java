@@ -13,7 +13,6 @@ public class ToDoList extends EspressoTestBase {
 
     @Test
     public void testAHomePageValidation() {
-
         // Step 1. Start the app
 
         // Expected Result 1."Minimal" text is visible
@@ -38,7 +37,6 @@ public class ToDoList extends EspressoTestBase {
 
     @Test
     public void testBAddButtonsValidation() {
-
         // Step 1.Start the app
 
         //Expected Result : “Minimal” text is displayed
@@ -59,7 +57,6 @@ public class ToDoList extends EspressoTestBase {
 
     @Test
     public void testCAddNewItemValidation() {
-
         // Step 1.Start the app
 
         // Expected Result : “Minimal” text is displayed
