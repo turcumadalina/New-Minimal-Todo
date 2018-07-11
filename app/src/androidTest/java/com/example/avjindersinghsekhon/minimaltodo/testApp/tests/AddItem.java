@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.startsWith;
 
 public class AddItem {
 
-    public static boolean isXButton() {
+    public static boolean isXButtonDisplayed() {
         return Helpers.checkIfUIObjectIsVisible(allOf(is(instanceOf(ImageButton.class)), withParent(withId(R.id.toolbar))));
     }
 
@@ -23,7 +23,7 @@ public class AddItem {
         Helpers.clickEl(allOf(is(instanceOf(ImageButton.class)), withParent(withId(R.id.toolbar))));
     }
 
-    public static boolean isFloatingActionButton() {
+    public static boolean isFloatingActionButtonDisplayed() {
         return Helpers.checkIfUIObjectIsVisible(withId(R.id.toDoCustomTextInput));
     }
 
@@ -31,7 +31,7 @@ public class AddItem {
         return Helpers.checkIfUIObjectIsVisible(allOf(is(instanceOf(EditText.class)), withParent(withId(R.id.toDoCustomTextInput))));
     }
 
-    public static void clickSwitchOn() {
+    public static void clickButtonToSwitchOnOrOff() {
         Helpers.clickEl(withId(R.id.toDoHasDateSwitchCompat));
     }
 
@@ -43,11 +43,11 @@ public class AddItem {
         Helpers.clickEl(withId(R.id.makeToDoFloatingActionButton));
     }
 
-    public static boolean isRemindLeft() {
+    public static boolean isRemindLeftOfSwitchButton() {
         return Helpers.isRemindLeft(withText(R.string.remind_me), withId(R.id.toDoHasDateSwitchCompat));
     }
 
-    public static boolean isRemindRight() {
+    public static boolean isRemindRightOfImageButton() {
         return Helpers.isRemindRight(withText(R.string.remind_me), withId(R.id.userToDoReminderIconImageButton));
     }
 

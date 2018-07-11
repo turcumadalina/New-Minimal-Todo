@@ -9,7 +9,7 @@ import org.junit.runners.MethodSorters;
 import static junit.framework.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class StartTheApp extends EspressoTestBase {
+public class MinimalAppElementsValitadion extends EspressoTestBase {
     @Test
     public void testAhomePageValidation() {
         // Verify: “Minimal” and “You don’t have any todos” texts are visible
@@ -40,7 +40,7 @@ public class StartTheApp extends EspressoTestBase {
         Home.clickAddButton();
 
         // Veryfy: "X" button is visible
-        assertTrue("X button is not displayed", AddItem.isXButton());
+        assertTrue("X button is not displayed", AddItem.isXButtonDisplayed());
 
         // Click "X" button
         AddItem.clickXButton();
@@ -54,26 +54,27 @@ public class StartTheApp extends EspressoTestBase {
         // Verify: "Minimal" text is visible
         assertTrue("Minimal is not displayed", Home.isMinimalVisible());
 
-        // Step: Click "Add" button and check if FloatingActionButton is visible
+        // Verify: FloatingActionButton is visible
         Home.clickAddButton();
-        assertTrue("FloatingActionButton is not displayed", AddItem.isFloatingActionButton());
+        assertTrue("FloatingActionButton is not displayed", AddItem.isFloatingActionButtonDisplayed());
 
         // Step: Close keyboard
         Espresso.closeSoftKeyboard();
+
         // Verify: EditText is displayed as a descendent of a LinearLayout,
         //         “Remind me” text is displayed between two buttons
         assertTrue("EditText is not displayed", AddItem.isEditText());
-        assertTrue("Remind me is not to the left of button", AddItem.isRemindLeft());
-        assertTrue("Remind me is not to the left of button", AddItem.isRemindRight());
+        assertTrue("Remind me is not to the left of button", AddItem.isRemindLeftOfSwitchButton());
+        assertTrue("Remind me is not to the left of button", AddItem.isRemindRightOfImageButton());
 
         // Step: Add new item: "MY_TODO" (uppercase)
         AddItem.addItemUppercase("my todo");
 
         // Verify: "MY_TODO" is displayed above "Remind me"
-        assertTrue("MY_TODO is not displayed above Remind me", Home.isMyToDoText());
+        assertTrue("MY_TODO is not displayed above Remind me", Home.isItemTextAboveRemindMe());
 
         // Step: Turn the switch On
-        AddItem.clickSwitchOn();
+        AddItem.clickButtonToSwitchOnOrOff();
 
         // Verify: Text starting with "Reminder set" is displayed
         assertTrue("Reminder set is not displayed", AddItem.isReminderSet());
@@ -86,7 +87,7 @@ public class StartTheApp extends EspressoTestBase {
 
         // Verify: The date displayed when you added "MY_TODO" is now visible below this item
         String secondDate = AddItem.getSecondData();
-        String newFirstDate = Helpers.substring(firstDate);
+        String newFirstDate = Helpers.getDataFormat(firstDate);
         if (newFirstDate.equals(secondDate)) {
             assertTrue("The date is not displayed below", Home.isDateBelow());
         }

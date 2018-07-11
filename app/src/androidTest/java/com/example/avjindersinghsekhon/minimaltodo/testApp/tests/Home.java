@@ -55,7 +55,7 @@ public class Home {
         Helpers.clickEl(withId(R.id.addToDoItemFAB));
     }
 
-    public static boolean isMyToDoText() {
+    public static boolean isItemTextAboveRemindMe() {
         return Helpers.isUIObjectAbove(withText("MY TODO"), withText(R.string.remind_me));
     }
 
