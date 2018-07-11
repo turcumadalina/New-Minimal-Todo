@@ -46,7 +46,6 @@ public class Helpers {
 
 
     public static boolean isVisible(Matcher<View> matcher) {
-
         try {
             onView(matcher).check(matches(isDisplayed()));
             return true;
@@ -60,7 +59,6 @@ public class Helpers {
     }
 
     public static boolean isUIObjectClickable(Matcher<View> matcher) {
-
         try {
             onView(matcher).check(matches(isClickable()));
             return true;
@@ -77,7 +75,7 @@ public class Helpers {
         onView(matcher).perform(click());
     }
 
-    public static boolean isAboveCheck(Matcher<View> matcher1, Matcher<View> matcher2) {
+    public static boolean isFirstMatcherAboveSecondMatcher(Matcher<View> matcher1, Matcher<View> matcher2) {
         try {
             onView(matcher1).check(isAbove(matcher2));
             return true;
@@ -90,7 +88,7 @@ public class Helpers {
 
     }
 
-    public static boolean isLeftOfCheck(Matcher<View> matcher1, Matcher<View> matcher2) {
+    public static boolean isFirstMatcherToTheLeftOfSecondMatcher(Matcher<View> matcher1, Matcher<View> matcher2) {
         try {
             onView(matcher1).check(isLeftOf(matcher2));
             return true;
@@ -103,7 +101,7 @@ public class Helpers {
 
     }
 
-    public static boolean isRightOfCheck(Matcher<View> matcher1, Matcher<View> matcher2) {
+    public static boolean isFirstMatcherToTheRightOfSecondMatcher(Matcher<View> matcher1, Matcher<View> matcher2) {
         try {
             onView(matcher1).check(isRightOf(matcher2));
             return true;
@@ -116,7 +114,7 @@ public class Helpers {
 
     }
 
-    public static boolean isBelowCheck(Matcher<View> matcher1, Matcher<View> matcher2) {
+    public static boolean isFirstMatcherBelowSecondMatcher(Matcher<View> matcher1, Matcher<View> matcher2) {
         try {
             onView(matcher1).check(isBelow(matcher2));
             return true;
@@ -129,7 +127,7 @@ public class Helpers {
 
     }
 
-    public static void typeTextAction(Matcher<View> matcher, String args) {
+    public static void typeUpperCaseTextAction(Matcher<View> matcher, String args) {
         onView(matcher).perform(typeText(args.toUpperCase()));
     }
 }

@@ -47,15 +47,15 @@ public class AddItem {
         Helpers.clickAction(withId(R.id.makeToDoFloatingActionButton));
     }
 
-    public static boolean isAboveText() {
-        return Helpers.isAboveCheck(withText("MY TODO"), withText(R.string.remind_me));
+    public static boolean isMyTodoTextAboveRemindMe() {
+        return Helpers.isFirstMatcherAboveSecondMatcher(withText("MY TODO"), withText(R.string.remind_me));
     }
 
-    public static boolean isBelowItem() {
-        return Helpers.isBelowCheck(withId(R.id.todoListItemTimeTextView), withId(R.id.toDoListItemTextview));
+    public static boolean isDateBelowToMyTodoText() {
+        return Helpers.isFirstMatcherBelowSecondMatcher(withId(R.id.todoListItemTimeTextView), withId(R.id.toDoListItemTextview));
     }
 
-    public static void typeText() {
-        Helpers.typeTextAction(withId(R.id.userToDoEditText), "my todo");
+    public static void typeMyTodoText() {
+        Helpers.typeUpperCaseTextAction(withId(R.id.userToDoEditText), "my todo");
     }
 }

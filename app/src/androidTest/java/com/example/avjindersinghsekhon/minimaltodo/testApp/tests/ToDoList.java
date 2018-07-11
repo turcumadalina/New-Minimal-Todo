@@ -26,7 +26,7 @@ public class ToDoList extends EspressoTestBase {
         assertTrue("Minimal text is not displayed in toolbar.", Home.isMinimalVisibleInToolbar());
 
         // Expected Result 3. An image is displayed above the “You don’t have any todos” text
-        assertTrue("You don't have any todos text is not displayed above that image.", Home.isAboveText());
+        assertTrue("You don't have any todos text is not displayed above that image.", Home.isYouDontHaveAnyTodosTextAboveImageView());
 
         // Expected Result 4."Add" button is displayed and clickable
         assertTrue("Add button is not displayed.", Home.isAddButtonVisible());
@@ -38,6 +38,7 @@ public class ToDoList extends EspressoTestBase {
 
     @Test
     public void testBAddButtonsValidation() {
+
         // Step 1.Start the app
 
         //Expected Result : “Minimal” text is displayed
@@ -58,10 +59,11 @@ public class ToDoList extends EspressoTestBase {
 
     @Test
     public void testCAddNewItemValidation() {
+
         // Step 1.Start the app
+
         // Expected Result : “Minimal” text is displayed
         assertTrue("Minimal text is not displayed.", Home.isMinimalVisible());
-        assertTrue("Minimal text is not displayed in toolbar.", Home.isMinimalVisibleInToolbar());
 
         // Step 2. Click "Add" button
         AddItem.clickAddButton();
@@ -75,15 +77,15 @@ public class ToDoList extends EspressoTestBase {
         // Expected Result : EditText is displayed as a descendent of a LinearLayout
         assertTrue("EditText is not displayed as a descendent of a LinearLayout.", AddItem.isEditTextVisible());
 
-        //“Remind me” text is displayed between two buttons
-        assertTrue("Reminder me is not displayed to left.", Home.isLeftOfButton());
-        assertTrue("Reminder me is not displayed to right.", Home.isRightOfButton());
+        //Expected Result : “Remind me” text is displayed between two buttons
+        assertTrue("Reminder me is not displayed to left.", Home.isRemindeMeLeftOfDateSwitch());
+        assertTrue("Reminder me is not displayed to right.", Home.isRemindeMeRightOfDateSwitch());
 
         // Step 4. Add new item: "MY TODO"(uppercase)
-        AddItem.typeText();
+        AddItem.typeMyTodoText();
 
         // Expected Result : "MY TODO" is displayed above "Remind me"
-        assertTrue("", AddItem.isAboveText());
+        assertTrue("My todo text is not displyed above Remind me text.", AddItem.isMyTodoTextAboveRemindMe());
 
         // Step 5. Turn the switch On
         AddItem.clickSwitchOn();
@@ -99,7 +101,7 @@ public class ToDoList extends EspressoTestBase {
         // String date2 = Helpers.getText(withId(R.id.todoListItemTimeTextView));
 
         // Expected Result : The date displayed when you added "MY TODO" is now visible below this item
-        assertTrue("The date is not displayed below MY TODO text.", AddItem.isBelowItem());
+        assertTrue("The date is not displayed below MY TODO text.", AddItem.isDateBelowToMyTodoText());
 
         // boolean result2 = date1.equals(date2);
 
