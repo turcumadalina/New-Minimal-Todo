@@ -116,8 +116,8 @@ public class Helpers {
         return stringHolder[0];
     }
 
-    public static String getDataFormat(String data) {
-        String formatedData = data.substring(16, 29);
+    public static String getDataFormat(String dataFormat) {
+        String formatedData = dataFormat.substring(16, 29);
         SimpleDateFormat parser = new SimpleDateFormat("dd MMM,yyyy");
         Date date = null;
         try {

@@ -47,6 +47,8 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
 
         // Verify: “You don’t have any todos” text is visible
         assertTrue("You don’t have any todos is not displayed", Home.isNoToDosText());
+        
+        Espresso.closeSoftKeyboard();
     }
 
     @Test
