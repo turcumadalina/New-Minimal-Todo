@@ -8,6 +8,11 @@ import android.widget.TextView;
 
 import org.hamcrest.Matcher;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
@@ -44,12 +49,18 @@ public class Helpers {
         return stringHolder[0];
     }
 
+    public static String formatDate(String actualDate) throws ParseException {
+        SimpleDateFormat actualFormatDate = new SimpleDateFormat("dd MMM, yyyy, hh:mm", Locale.US);
+        Date actualDate1 = actualFormatDate.parse(actualDate);
+        actualFormatDate.applyPattern("MMM dd, yyyy  hh:mm");
+
+        return actualFormatDate.format(actualDate1);
+    }
 
     public static boolean isVisible(Matcher<View> matcher) {
         try {
             onView(matcher).check(matches(isDisplayed()));
             return true;
-
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             return false;
@@ -60,7 +71,6 @@ public class Helpers {
         try {
             onView(matcher).check(matches(isClickable()));
             return true;
-
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             return false;
@@ -75,7 +85,6 @@ public class Helpers {
         try {
             onView(matcher1).check(isAbove(matcher2));
             return true;
-
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             return false;
@@ -86,7 +95,6 @@ public class Helpers {
         try {
             onView(matcher1).check(isLeftOf(matcher2));
             return true;
-
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             return false;
@@ -97,7 +105,6 @@ public class Helpers {
         try {
             onView(matcher1).check(isRightOf(matcher2));
             return true;
-
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             return false;
@@ -108,7 +115,6 @@ public class Helpers {
         try {
             onView(matcher1).check(isBelow(matcher2));
             return true;
-
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
             return false;

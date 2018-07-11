@@ -2,10 +2,17 @@ package com.example.avjindersinghsekhon.minimaltodo.testApp.tests;
 
 import android.support.test.espresso.Espresso;
 
+import com.example.avjindersinghsekhon.minimaltodo.R;
+
+import junit.framework.Assert;
+
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import java.text.ParseException;
+
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static junit.framework.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -39,28 +46,28 @@ public class ToDoList extends EspressoTestBase {
     public void testBAddButtonsValidation() {
         // Step 1.Start the app
 
-        //Expected Result : “Minimal” text is displayed
+        //Expected Result: “Minimal” text is displayed
         assertTrue("Minimal text is not displayed.", Home.isMinimalVisible());
 
         // Step 2. Click "Add" button
         AddItem.clickAddButton();
 
-        // Expected Result : "X" button is visible
+        // Expected Result: "X" button is visible
         assertTrue("X button is not displayed.", AddItem.isXButtonVisible());
 
         // Step 3. Click "X" button
         AddItem.clickXButton();
 
-        // Expected Result : “You don’t have any todos” text is visible
+        // Expected Result: “You don’t have any todos” text is visible
         assertTrue("You don't have any todos text is not visible.", Home.isYouDontHaveAnyTodosVisible());
     }
 
     @Test
-    public void testCAddNewItemValidation() {
-        
+    public void testCAddNewItemValidation() throws ParseException {
+
         // Step 1.Start the app
 
-        // Expected Result : “Minimal” text is displayed
+        // Expected Result: “Minimal” text is displayed
         assertTrue("Minimal text is not displayed.", Home.isMinimalVisible());
 
         // Step 2. Click "Add" button
@@ -72,35 +79,36 @@ public class ToDoList extends EspressoTestBase {
         // Step 3.Close keyboard
         Espresso.closeSoftKeyboard();
 
-        // Expected Result : EditText is displayed as a descendent of a LinearLayout
-        assertTrue("EditText is not displayed as a descendent of a LinearLayout.", AddItem.isEditTextVisible());
+        // Expected Result: EditText is displayed as a descendant of a LinearLayout
+        assertTrue("EditText is not displayed as a descendant of a LinearLayout.", AddItem.isEditTextVisible());
 
-        //Expected Result : “Remind me” text is displayed between two buttons
+        //Expected Result: “Remind me” text is displayed between two buttons
         assertTrue("Reminder me is not displayed to left.", Home.isRemindeMeLeftOfDateSwitch());
         assertTrue("Reminder me is not displayed to right.", Home.isRemindeMeRightOfDateSwitch());
 
-        // Step 4. Add new item: "MY TODO"(uppercase)
+        // Step 4. Add new item: "MY_TODO"(uppercase)
         AddItem.typeMyTodoText();
 
-        // Expected Result : "MY TODO" is displayed above "Remind me"
-        assertTrue("My todo text is not displyed above Remind me text.", AddItem.isMyTodoTextAboveRemindMe());
+        // Expected Result: "MY_TODO" is displayed above "Remind me"
+        assertTrue("My todo text is not displayed above Remind me text.", AddItem.isMyTodoTextAboveRemindMe());
 
         // Step 5. Turn the switch On
         AddItem.clickSwitchOn();
 
-        // Expected Result : Text starting with "Reminder set" is displayed
+        // Expected Result: Text starting with "Reminder set" is displayed
         assertTrue("Reminder set is not displayed.", AddItem.isReminderSetVisible());
 
-        // String date1 = Helpers.getText(withId(newToDoDateTimeReminderTextView));
+        String date1 = Helpers.getText(withId(R.id.newToDoDateTimeReminderTextView));
+        date1 = date1.substring(17, date1.length() - 1);
+        date1 = Helpers.formatDate(date1);
 
-        // Step 6.Click "FloatingActionButton" button
+        // Step 6. Click "FloatingActionButton" button
         AddItem.clickFloatActionButton();
 
-        // String date2 = Helpers.getText(withId(R.id.todoListItemTimeTextView));
-
-        // Expected Result : The date displayed when you added "MY TODO" is now visible below this item
+        String date2 = Helpers.getText(withId(R.id.todoListItemTimeTextView));
+        // Expected Result: The date displayed when you added "MY_TODO" is now visible below this item
         assertTrue("The date is not displayed below MY TODO text.", AddItem.isDateBelowToMyTodoText());
 
-        // boolean result2 = date1.equals(date2);
+        Assert.assertEquals("Date1 is not equal with date2", date1, date2);
     }
 }
