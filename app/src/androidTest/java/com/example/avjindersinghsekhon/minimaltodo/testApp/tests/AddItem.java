@@ -35,7 +35,7 @@ public class AddItem {
         Helpers.clickElement(withId(R.id.toDoHasDateSwitchCompat));
     }
 
-    public static boolean isReminderSetDisplayd() {
+    public static boolean isReminderSetDisplayed() {
         return Helpers.checkIfUIObjectIsVisible(withText(startsWith("Reminder set")));
     }
 
@@ -44,11 +44,11 @@ public class AddItem {
     }
 
     public static boolean isRemindLeftOfSwitchButton() {
-        return Helpers.isRemindLeftOfSwitchButton(withText(R.string.remind_me), withId(R.id.toDoHasDateSwitchCompat));
+        return Helpers.isUIObjectLeftOfAnotherUIObject(withText(R.string.remind_me), withId(R.id.toDoHasDateSwitchCompat));
     }
 
     public static boolean isRemindRightOfImageButton() {
-        return Helpers.isRemindRightOfImageButton(withText(R.string.remind_me), withId(R.id.userToDoReminderIconImageButton));
+        return Helpers.isUIObjectRightOfAnotherUIObject(withText(R.string.remind_me), withId(R.id.userToDoReminderIconImageButton));
     }
 
     public static void addItemUppercase(String args) {

@@ -21,7 +21,7 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
         assertTrue("Minimal is not displayed", Home.isMinimalDisplayedInToolbar());
 
         // Verify: An image is displayed above the “You don’t have any todos” text
-        assertTrue("Image is not displayed above", Home.isImageAboveHomeText());
+        assertTrue("Image is not displayed above", Home.isImageAboveNoToDoText());
 
         // Verify: "Add" button is displayed and clickable
         assertTrue("Add button is not displayd", Home.isAddButtonVisivle());
@@ -40,7 +40,7 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
         // Step: Click "Add" button
         Home.clickAddButton();
 
-        // Veryfy: "X" button is visible
+        // Verify: "X" button is visible
         assertTrue("X button is not displayed", AddItem.isXButtonDisplayed());
 
         // Click "X" button
@@ -49,7 +49,7 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
         // Verify: “You don’t have any todos” text is visible
         assertTrue("You don’t have any todos is not displayed", Home.isNoToDosTextVisible());
 
-        // Step: Close keyboard
+        // Close keyboard
         Espresso.closeSoftKeyboard();
     }
 
@@ -58,8 +58,10 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
         // Verify: "Minimal" text is visible
         assertTrue("Minimal is not displayed", Home.isMinimalVisible());
 
-        // Verify: FloatingActionButton is visible
+        // Step: Click add button
         Home.clickAddButton();
+
+        // Verify: FloatingActionButton is visible
         assertTrue("FloatingActionButton is not displayed", AddItem.isFloatingActionButtonDisplayed());
 
         // Step: Close keyboard
@@ -81,7 +83,7 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
         AddItem.clickButtonToSwitchOnOrOff();
 
         // Verify: Text starting with "Reminder set" is displayed
-        assertTrue("Reminder set is not displayed", AddItem.isReminderSetDisplayd());
+        assertTrue("Reminder set is not displayed", AddItem.isReminderSetDisplayed());
 
         // Verify: The data format
         String firstDate = AddItem.getData();
@@ -93,7 +95,7 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
         String secondDate = Home.getSecondData();
         String newFirstDate = Helpers.getDataFormat(firstDate);
         if (newFirstDate.equals(secondDate)) {
-            assertTrue("The date is not displayed below", Home.isDateBelowOfItemText());
+            assertTrue("The date is not displayed below", Home.isDateBelowOfToDoItemText());
         }
     }
 }

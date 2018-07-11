@@ -31,7 +31,7 @@ public class Home {
         return Helpers.checkIfUIObjectIsClickable(withId(R.id.addToDoItemFAB));
     }
 
-    public static boolean isImageAboveHomeText() {
+    public static boolean isImageAboveNoToDoText() {
         return Helpers.isUIObjectAboveAnotherObject(allOf(is(instanceOf(ImageView.class)), withParent(withId(R.id.toDoEmptyView))), withText(R.string.no_to_dos));
     }
 
@@ -39,7 +39,7 @@ public class Home {
         return Helpers.getText(withId(R.id.todoListItemTimeTextView));
     }
 
-    public static boolean isDateBelowOfItemText() {
+    public static boolean isDateBelowOfToDoItemText() {
         return Helpers.isUIObjectBelowAnotherObject(withId(R.id.todoListItemTimeTextView), withId(R.id.toDoListItemTextview));
     }
 

@@ -66,7 +66,7 @@ public class Helpers {
         }
     }
 
-    public static boolean isRemindLeftOfSwitchButton(Matcher<View> matcher, Matcher<View> matcher2) {
+    public static boolean isUIObjectLeftOfAnotherUIObject(Matcher<View> matcher, Matcher<View> matcher2) {
         try {
             onView(matcher).check(isLeftOf(matcher2));
             return true;
@@ -75,7 +75,7 @@ public class Helpers {
         }
     }
 
-    public static boolean isRemindRightOfImageButton(Matcher<View> matcher, Matcher<View> matcher2) {
+    public static boolean isUIObjectRightOfAnotherUIObject(Matcher<View> matcher, Matcher<View> matcher2) {
         try {
             onView(matcher).check(isRightOf(matcher2));
             return true;
