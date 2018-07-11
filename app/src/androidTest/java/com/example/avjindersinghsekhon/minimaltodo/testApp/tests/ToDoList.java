@@ -57,6 +57,7 @@ public class ToDoList extends EspressoTestBase {
 
     @Test
     public void testCAddNewItemValidation() {
+        
         // Step 1.Start the app
 
         // Expected Result : “Minimal” text is displayed
