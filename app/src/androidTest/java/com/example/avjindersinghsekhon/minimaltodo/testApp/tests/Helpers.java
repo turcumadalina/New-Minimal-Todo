@@ -27,7 +27,6 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static org.hamcrest.core.IsNot.not;
 
 public class Helpers {
 
@@ -64,16 +63,6 @@ public class Helpers {
     public static boolean isVisible(Matcher<View> matcher) {
         try {
             onView(matcher).check(matches(isDisplayed()));
-            return true;
-        } catch (NoMatchingViewException e) {
-            // View is not in hierarchy
-            return false;
-        }
-    }
-
-    public static boolean isNotVisible(Matcher<View> matcher) {
-        try {
-            onView(matcher).check(matches(not(isDisplayed())));
             return true;
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy

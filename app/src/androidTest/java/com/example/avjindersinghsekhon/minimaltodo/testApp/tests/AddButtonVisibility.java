@@ -15,7 +15,7 @@ public class AddButtonVisibility extends EspressoTestBase {
         AddItem.swipeUpAction();
 
         //Expected Result: Add button is NOT displayed
-        Assert.assertTrue("Add button is displayed", Home.isAddButtonNotVisible());
+        Assert.assertFalse("Add button is displayed", Home.isAddButtonVisible());
 
         //Step 1. SwipeDown the list
         AddItem.swipeDownAction();

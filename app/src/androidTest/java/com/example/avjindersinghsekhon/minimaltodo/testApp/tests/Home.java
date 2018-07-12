@@ -6,10 +6,10 @@ import android.widget.ImageView;
 import com.example.avjindersinghsekhon.minimaltodo.R;
 
 import static android.support.test.espresso.matcher.ViewMatchers.hasSibling;
+import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.example.avjindersinghsekhon.minimaltodo.testApp.tests.Helpers.isNotVisible;
 import static com.example.avjindersinghsekhon.minimaltodo.testApp.tests.Helpers.isVisible;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.instanceOf;
@@ -29,11 +29,7 @@ public class Home {
     }
 
     public static boolean isAddButtonVisible() {
-        return isVisible(withId(R.id.addToDoItemFAB));
-    }
-
-    public static boolean isAddButtonNotVisible() {
-        return isNotVisible(withId(R.id.addToDoItemFAB));
+        return isVisible(allOf(withId(R.id.addToDoItemFAB), isCompletelyDisplayed()));
     }
 
     public static boolean isMoreOptionsSiblingWithMinimalVisible() {
