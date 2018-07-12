@@ -1,6 +1,7 @@
 package com.example.avjindersinghsekhon.minimaltodo.testApp.tests;
 
 import com.example.avjindersinghsekhon.minimaltodo.R;
+
 import org.junit.Test;
 
 import static android.support.test.espresso.Espresso.onView;

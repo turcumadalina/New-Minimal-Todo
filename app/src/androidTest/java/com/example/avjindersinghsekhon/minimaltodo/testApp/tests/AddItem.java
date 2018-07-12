@@ -9,6 +9,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.example.avjindersinghsekhon.minimaltodo.R.id.userToDoEditText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
@@ -56,6 +57,20 @@ public class AddItem {
     }
 
     public static void typeMyTodoText() {
-        Helpers.typeUpperCaseTextAction(withId(R.id.userToDoEditText), "my todo");
+        Helpers.typeUpperCaseTextAction(withId(userToDoEditText), "my todo");
+    }
+
+    public static void typeRandomText() {
+        String itemName = Helpers.getRandomString(5);
+        Helpers.typeTextAction(withId(R.id.userToDoEditText), itemName);
+    }
+
+    public static void swipeUpAction() {
+        Helpers.swipeUpAction(allOf(withId(R.id.toDoRecyclerView)));
+    }
+
+    public static void swipeDownAction() {
+        Helpers.swipeDownAction(allOf(withId(R.id.toDoRecyclerView)));
     }
 }
+

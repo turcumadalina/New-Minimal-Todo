@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import org.hamcrest.Matcher;
 
+import java.security.SecureRandom;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,6 +16,8 @@ import java.util.Locale;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeDown;
+import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.PositionAssertions.isAbove;
 import static android.support.test.espresso.assertion.PositionAssertions.isBelow;
@@ -24,6 +27,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static org.hamcrest.core.IsNot.not;
 
 public class Helpers {
 
@@ -60,6 +64,16 @@ public class Helpers {
     public static boolean isVisible(Matcher<View> matcher) {
         try {
             onView(matcher).check(matches(isDisplayed()));
+            return true;
+        } catch (NoMatchingViewException e) {
+            // View is not in hierarchy
+            return false;
+        }
+    }
+
+    public static boolean isNotVisible(Matcher<View> matcher) {
+        try {
+            onView(matcher).check(matches(not(isDisplayed())));
             return true;
         } catch (NoMatchingViewException e) {
             // View is not in hierarchy
@@ -123,5 +137,38 @@ public class Helpers {
 
     public static void typeUpperCaseTextAction(Matcher<View> matcher, String args) {
         onView(matcher).perform(typeText(args.toUpperCase()));
+    }
+
+    public static void typeTextAction(Matcher<View> matcher, String itemName) {
+        onView(matcher).perform(typeText(itemName));
+    }
+
+    public static String getRandomString(int newItemStringLength) {
+        final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+        SecureRandom random = new SecureRandom();
+        StringBuilder sb = new StringBuilder(newItemStringLength);
+
+        for (int i = 0; i < newItemStringLength; i++) {
+            sb.append(AB.charAt(random.nextInt(AB.length())));
+        }
+
+        return sb.toString();
+    }
+
+    public static void typeNewItemAction(int xItemsAdded) {
+        for (int i = 1; i <= xItemsAdded; i++) {
+            AddItem.clickAddButton();
+            AddItem.typeRandomText();
+            AddItem.clickFloatActionButton();
+        }
+    }
+
+    public static void swipeUpAction(Matcher<View> matcher) {
+        onView(matcher).perform(swipeUp());
+    }
+
+    public static void swipeDownAction(Matcher<View> matcher) {
+        onView(matcher).perform(swipeDown());
     }
 }
