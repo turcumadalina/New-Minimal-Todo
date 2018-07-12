@@ -35,6 +35,8 @@ import static org.hamcrest.Matchers.allOf;
 
 
 public class Helpers {
+    private static Random rand = new Random();
+    private static int randomNumber = rand.nextInt(5);
 
     public static String getText(final Matcher<View> matcher) {
         final String[] stringHolder = {null};
@@ -142,9 +144,6 @@ public class Helpers {
             sb.append(AB.charAt(rnd.nextInt(AB.length())));
         return sb.toString();
     }
-
-    private static Random rand = new Random();
-    private static int randomNumber = rand.nextInt(5);
 
     public static void AddItems(Matcher<View> matcher, String specialItem, int numberOfItems) {
         for (int i = 0; i < numberOfItems; i++) {
