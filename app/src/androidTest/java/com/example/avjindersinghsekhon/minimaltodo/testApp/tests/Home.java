@@ -53,4 +53,16 @@ public class Home {
     public static String getSecondDate() {
         return Helpers.getText(withId(R.id.todoListItemTimeTextView));
     }
+
+    public static void deleteASpecificItem() {
+        Helpers.deleteTheSpecialItem(withId(R.id.toDoRecyclerView));
+    }
+
+    public static boolean is5ItemsinRecycleView() {
+        return Helpers.checkNumberOfItemsInRecycleView(withId(R.id.toDoRecyclerView), 5);
+    }
+
+    public static boolean isSpecificItemNotDisplayed() {
+        return Helpers.isObjectDisplayed(withText("My new to do item"));
+    }
 }

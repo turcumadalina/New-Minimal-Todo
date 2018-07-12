@@ -65,4 +65,8 @@ public class AddToDo {
     public static String getFirstDate() {
         return Helpers.getText(withId(R.id.newToDoDateTimeReminderTextView));
     }
+
+    public static void addACertainNumberOfItems(String specialItem) {
+        Helpers.AddItems(withId(R.id.userToDoEditText), specialItem, 5);
+    }
 }

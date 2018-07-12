@@ -7,6 +7,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -95,5 +96,20 @@ public class ViewItems_ButtonValidation_Test extends EspressoTestBase {
         if (theNewFirstDate.equals(theSecondDate)) {
             Assert.assertTrue("The date is not visible below", AddToDo.dateIsBelowToDo());
         }
+    }
+
+    @Test
+    public void checkNumberOfItemsAndDeleteOne() {
+        // Step: Add 5 items (1 of them with text "My new to do item")
+        AddToDo.addACertainNumberOfItems("My new to do item");
+
+        // Verify: In the RecyclerView there are 5 items
+        assertTrue("There are not 5 items in Recycle View", Home.is5ItemsinRecycleView());
+
+        // Step: Remove the item with text "My new to do item", but don't create the matcher using the text
+        Home.deleteASpecificItem();
+
+        // Verify: Item isn't displayed anymore
+        assertFalse("Item is displayed", Home.isSpecificItemNotDisplayed());
     }
 }

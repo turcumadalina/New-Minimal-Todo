@@ -2,17 +2,25 @@ package com.example.avjindersinghsekhon.minimaltodo.testApp.tests;
 
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 
+import java.security.SecureRandom;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.PositionAssertions.isAbove;
 import static android.support.test.espresso.assertion.PositionAssertions.isBelow;
@@ -21,7 +29,10 @@ import static android.support.test.espresso.assertion.PositionAssertions.isRight
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
+import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static org.hamcrest.Matchers.allOf;
+
 
 public class Helpers {
 
@@ -47,7 +58,7 @@ public class Helpers {
         return stringHolder[0];
     }
 
-    public static String dateFormat (String dateInput) {
+    public static String dateFormat(String dateInput) {
         String input = dateInput.substring(16, 29);
         SimpleDateFormat parser = new SimpleDateFormat("dd MMM,yyyy");
         Date date = null;
@@ -66,7 +77,7 @@ public class Helpers {
 
     public static boolean isObjectDisplayed(Matcher<View> matcher) {
         try {
-            onView(matcher).check(matches(isDisplayed()));
+            onView(allOf(matcher, isCompletelyDisplayed())).check(matches(isDisplayed()));
             return true;
         } catch (Exception e) {
             return false;
@@ -120,5 +131,85 @@ public class Helpers {
 
     public static void TypeTextToUppercase(Matcher<View> matcher, String textInput) {
         onView(matcher).perform(typeText(textInput.toUpperCase()));
+    }
+
+
+    private static String generateRandomString(int stringLength) {
+        final String AB = "abcdefghijklmnopqrstuvwxyz";
+        SecureRandom rnd = new SecureRandom();
+        StringBuilder sb = new StringBuilder(stringLength);
+        for (int i = 0; i < stringLength; i++)
+            sb.append(AB.charAt(rnd.nextInt(AB.length())));
+        return sb.toString();
+    }
+
+    private static Random rand = new Random();
+    private static int randomNumber = rand.nextInt(5);
+
+    public static void AddItems(Matcher<View> matcher, String specialItem, int numberOfItems) {
+        for (int i = 0; i < numberOfItems; i++) {
+            if (i == randomNumber) {
+                Home.clickAddButton();
+                onView(matcher).perform(typeText(specialItem));
+                AddToDo.clickFloatingActionButton();
+            } else {
+                Home.clickAddButton();
+                onView(matcher).perform(typeText(generateRandomString(10)));
+                AddToDo.clickFloatingActionButton();
+            }
+        }
+    }
+
+    private static Matcher<View> nthChildOf(final Matcher<View> parentMatcher, final int childPosition) {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with " + childPosition + " child view of type parentMatcher");
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                if (!(view.getParent() instanceof ViewGroup)) {
+                    return parentMatcher.matches(view.getParent());
+                }
+
+                ViewGroup group = (ViewGroup) view.getParent();
+                return parentMatcher.matches(view.getParent()) && group.getChildAt(childPosition).equals(view);
+            }
+        };
+    }
+
+    public static void deleteTheSpecialItem(Matcher<View> matcher) {
+        onView(nthChildOf(matcher, randomNumber)).perform(swipeLeft());
+    }
+
+    private static int getRecyclerViewChildCount(Matcher<View> matcher) {
+        final int[] count = {0};
+        onView(matcher).perform(new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return ViewMatchers.isAssignableFrom(RecyclerView.class);
+            }
+
+            @Override
+            public String getDescription() {
+                return "getting child count";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                RecyclerView rv = (RecyclerView) view;
+                count[0] = rv.getChildCount();
+            }
+        });
+        return count[0];
+    }
+
+    public static boolean checkNumberOfItemsInRecycleView(Matcher<View> matcher, int numbersToCheck) {
+        if (getRecyclerViewChildCount(matcher) == numbersToCheck) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
