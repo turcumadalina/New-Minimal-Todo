@@ -5,6 +5,7 @@ import android.widget.ImageButton;
 
 import com.example.avjindersinghsekhon.minimaltodo.R;
 
+import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -57,5 +58,22 @@ public class AddItem {
 
     public static String getData() {
         return Helpers.getText(withId(R.id.newToDoDateTimeReminderTextView));
+    }
+
+    public static void add15Items() {
+        Helpers.addToDoItems(withId(R.id.userToDoEditText), "This is what I need to test", 15);
+    }
+
+    public static boolean isItemWithTextThisIsWhatINeedToTestIsDisplayed() {
+        return Helpers.checkIfUIObjectIsVisible(withText("This is what I need to test"));
+    }
+
+    public static void EditToDoItem8thText() {
+        Helpers.clickElement(withText("This is what I need to test"));
+        Helpers.editToDoItemTextAndClickFloatingButton(withText("This is what I need to test"), " This is tne new text");
+    }
+
+    public static boolean isToDoItemDisplayedAtSpecificPosition(String toDoName, int itemPosition) {
+        return Helpers.checkIfUIObjectIsVisible(allOf(withId(R.id.toDoListItemTextview), withText(toDoName), isDescendantOfA(Helpers.childAtPosition(withId(R.id.toDoRecyclerView), itemPosition))));
     }
 }

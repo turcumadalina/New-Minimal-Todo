@@ -6,6 +6,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -97,5 +98,23 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
         if (newFirstDate.equals(secondDate)) {
             assertTrue("The date is not displayed below", Home.isDateBelowOfToDoItemText());
         }
+    }
+
+    @Test
+    public void editToDoItemText() {
+        // Step: Add 15 items; The 8th item has name "This is what I need to test"
+        AddItem.add15Items();
+
+        // Verify: Is item with text "This is what I need to test" displayed
+        assertTrue("Item with text This is what I need to test is not displayed", AddItem.isItemWithTextThisIsWhatINeedToTestIsDisplayed());
+
+        // Step: Edit the name of the 8th item and go back to the list
+        AddItem.EditToDoItem8thText();
+
+        // Verify: At the same position in the list, the item with text "This is what I need to test" is NOT displayed
+        assertFalse("Item is still visible", AddItem.isToDoItemDisplayedAtSpecificPosition("This is what I need to test", 7));
+
+        // Verify: At the same position, the new text is displayed
+        assertTrue("New item is not visible", AddItem.isToDoItemDisplayedAtSpecificPosition(" This is tne new text", 7));
     }
 }
