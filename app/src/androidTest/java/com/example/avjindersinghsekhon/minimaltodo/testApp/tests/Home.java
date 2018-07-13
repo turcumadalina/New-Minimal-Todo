@@ -1,8 +1,11 @@
 package com.example.avjindersinghsekhon.minimaltodo.testApp.tests;
 
+import android.view.View;
 import android.widget.ImageView;
 
 import com.example.avjindersinghsekhon.minimaltodo.R;
+
+import org.hamcrest.Matcher;
 
 import static android.support.test.espresso.matcher.ViewMatchers.hasSibling;
 import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
@@ -55,7 +58,7 @@ public class Home {
     }
 
     public static void deleteASpecificItem() {
-        Helpers.deleteTheSpecialItem(withId(R.id.toDoRecyclerView));
+        Helpers.deleteTheSpecialItem(withId(R.id.toDoRecyclerView), 1);
     }
 
     public static boolean is5ItemsinRecycleView() {
@@ -64,5 +67,21 @@ public class Home {
 
     public static boolean isSpecificItemNotDisplayed() {
         return Helpers.isObjectDisplayed(withText("My new to do item"));
+    }
+
+    public static void swipeUpToDoList() {
+        Helpers.swipeUpList(withId(R.id.toDoRecyclerView));
+    }
+
+    public static void swipeDownToDoList() {
+        Helpers.swipeDownList(withId(R.id.toDoRecyclerView));
+    }
+
+    public static boolean isThisIsWhatINeedToTestDisplayed() {
+        return Helpers.isObjectDisplayed(withText("This is what I need to test"));
+    }
+
+    public static boolean isElementDisplayedOnPosition(int childPosition, Matcher<View> elementMatcher) {
+        return Helpers.isObjectDisplayedOnASpecificPosition(withId(R.id.toDoRecyclerView), childPosition, elementMatcher);
     }
 }

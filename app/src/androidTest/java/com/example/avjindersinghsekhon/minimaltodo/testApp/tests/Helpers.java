@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.avjindersinghsekhon.minimaltodo.R;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -19,18 +21,23 @@ import java.util.Date;
 import java.util.Random;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
+import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.PositionAssertions.isAbove;
 import static android.support.test.espresso.assertion.PositionAssertions.isBelow;
 import static android.support.test.espresso.assertion.PositionAssertions.isLeftOf;
 import static android.support.test.espresso.assertion.PositionAssertions.isRightOf;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.allOf;
 
 
@@ -135,7 +142,6 @@ public class Helpers {
         onView(matcher).perform(typeText(textInput.toUpperCase()));
     }
 
-
     private static String generateRandomString(int stringLength) {
         final String AB = "abcdefghijklmnopqrstuvwxyz";
         SecureRandom rnd = new SecureRandom();
@@ -145,9 +151,9 @@ public class Helpers {
         return sb.toString();
     }
 
-    public static void AddItems(Matcher<View> matcher, String specialItem, int numberOfItems) {
+    public static void AddItems(Matcher<View> matcher, String specialItem, int numberOfItems, int positionOfSpecialItem) {
         for (int i = 0; i < numberOfItems; i++) {
-            if (i == randomNumber) {
+            if (i == positionOfSpecialItem) {
                 Home.clickAddButton();
                 onView(matcher).perform(typeText(specialItem));
                 AddToDo.clickFloatingActionButton();
@@ -178,8 +184,8 @@ public class Helpers {
         };
     }
 
-    public static void deleteTheSpecialItem(Matcher<View> matcher) {
-        onView(nthChildOf(matcher, randomNumber)).perform(swipeLeft());
+    public static void deleteTheSpecialItem(Matcher<View> matcher, int positionOfItem) {
+        onView(nthChildOf(matcher, positionOfItem)).perform(swipeLeft());
     }
 
     private static int getRecyclerViewChildCount(Matcher<View> matcher) {
@@ -209,6 +215,36 @@ public class Helpers {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public static void swipeUpList(Matcher<View> matcher) {
+        onView(matcher).perform(swipeUp());
+    }
+
+    public static void swipeDownList(Matcher<View> matcher) {
+        onView(matcher).perform(swipeDown());
+    }
+
+    public static void editTheSpecialItem(Matcher<View> matcher, Matcher<View> elementToModifyMatcher, Matcher<View> floatingButton, int positionOfItem, String myNewToDo) {
+        onView(nthChildOf(matcher, positionOfItem)).perform(click());
+        onView((elementToModifyMatcher)).perform(clearText());
+        onView((elementToModifyMatcher)).perform(typeText(myNewToDo));
+        onView((floatingButton)).perform(click());
+    }
+
+    public static boolean isObjectDisplayedOnASpecificPosition(Matcher<View> parentMatcher, int childPosition, Matcher<View> descendantMatcher) {
+        try {
+            onView(allOf(nthChildOf(parentMatcher, childPosition), hasDescendant(descendantMatcher), isCompletelyDisplayed())).check(matches(isDisplayed()));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static void deleteAllItems() {
+        for (int i = 0; i< getRecyclerViewChildCount(withId(R.id.toDoRecyclerView)); i++) {
+            onView(nthChildOf(withId(R.id.toDoRecyclerView), i)).perform(swipeLeft());
         }
     }
 }

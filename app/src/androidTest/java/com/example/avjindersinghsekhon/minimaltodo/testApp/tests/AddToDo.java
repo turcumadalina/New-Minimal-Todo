@@ -66,7 +66,11 @@ public class AddToDo {
         return Helpers.getText(withId(R.id.newToDoDateTimeReminderTextView));
     }
 
-    public static void addACertainNumberOfItems(String specialItem) {
-        Helpers.AddItems(withId(R.id.userToDoEditText), specialItem, 5);
+    public static void addACertainNumberOfItems(String specialItem, int numberOfItems, int positionOfSpecialItem) {
+        Helpers.AddItems(withId(R.id.userToDoEditText), specialItem, numberOfItems, positionOfSpecialItem);
+    }
+
+    public static void editToDoOn8thPosition(int positionOfItem, String myNewToDo) {
+        Helpers.editTheSpecialItem(withId(R.id.toDoRecyclerView), withId(R.id.userToDoEditText), withId(R.id.makeToDoFloatingActionButton), positionOfItem, myNewToDo);
     }
 }

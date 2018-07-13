@@ -7,11 +7,13 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ViewItems_ButtonValidation_Test extends EspressoTestBase {
+
     @Test
     public void testAViewItems() {
 
@@ -99,9 +101,9 @@ public class ViewItems_ButtonValidation_Test extends EspressoTestBase {
     }
 
     @Test
-    public void checkNumberOfItemsAndDeleteOne() {
+    public void testDCheckNumberOfItemsAndDeleteOne() {
         // Step: Add 5 items (1 of them with text "My new to do item")
-        AddToDo.addACertainNumberOfItems("My new to do item");
+        AddToDo.addACertainNumberOfItems("My new to do item", 5, 1);
 
         // Verify: In the RecyclerView there are 5 items
         assertTrue("There are not 5 items in Recycle View", Home.is5ItemsinRecycleView());
@@ -111,5 +113,43 @@ public class ViewItems_ButtonValidation_Test extends EspressoTestBase {
 
         // Verify: Item isn't displayed anymore
         assertFalse("Item is displayed", Home.isSpecificItemNotDisplayed());
+    }
+
+    @Test
+    public void testEEditASpecificItem() {
+        // Step: Add 15 items
+        // Step: The 8th item has name "This is what I need to test"
+        AddToDo.addACertainNumberOfItems("This is what I need to test", 15, 7);
+
+        // Verify: Item with text "This is what I need to test" is displayed
+        assertTrue("\"This is what I need to test\" is not displayed", Home.isThisIsWhatINeedToTestDisplayed());
+
+        // Step: Edit the name of the 8th item and go back to the list
+        AddToDo.editToDoOn8thPosition(7, "This is my new to do test");
+
+        // Verify: At the same position in the list, the item with text "This is what I need to test" is NOT displayed
+        assertFalse("\"This is what I need to test\" is displayed", Home.isElementDisplayedOnPosition(7, withText("This is what I need to test")));
+
+        // Verify: At the same position, the new text is displayed
+        assertTrue("\"This is my new to do test\" is not displayed", Home.isElementDisplayedOnPosition(7, withText("This is my new to do test")));
+    }
+
+    @Test
+    public void testFAddButtonVisibility() {
+        // Step: Add 20 items
+        AddToDo.addACertainNumberOfItems("My new to do item", 20, 1);
+
+        // Step: SwipeUp the list
+        Home.swipeUpToDoList();
+
+        // Verify: Add button is NOT displayed
+        assertFalse("Add button is displayed", Home.isAddButtonDisplayed());
+
+        // Step: SwipeDown the list
+        Home.swipeDownToDoList();
+
+        // Verify: Add button is displayed
+        assertTrue("Add button is not displayed", Home.isAddButtonDisplayed());
+
     }
 }
