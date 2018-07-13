@@ -72,5 +72,29 @@ public class AddItem {
     public static void swipeDownAction() {
         Helpers.swipeDownAction(allOf(withId(R.id.toDoRecyclerView)));
     }
+
+    public static void typeThe8thItemText() {
+        Helpers.typeTextAction(withId(R.id.userToDoEditText), "This is what I need to test.");
+    }
+
+    public static void typeASpecificItemFromList() {
+        Helpers.typeTextAction(withId(R.id.userToDoEditText), "My new to do item");
+    }
+
+    public static boolean isThe8thItemTextVisible() {
+        return Helpers.isVisible(withText("This is what I need to test."));
+    }
+
+    public static void clickOnThe8thItemOfTheList() {
+        Helpers.clickAction(withText("This is what I need to test."));
+    }
+
+    public static void typeNewTextInTheList() {
+        Helpers.replaceTextAction(withId(R.id.userToDoEditText), "This is my new text I have to test.");
+    }
+
+    public static boolean isThe8thItemDisplayedAtSpecificPosition(String itemNameIVerify,int newItemPosition) {
+        return Helpers.isVisible(allOf(withId(R.id.toDoListItemTextview), withText(itemNameIVerify), isDescendantOfA(Helpers.childAtPosition(withId(R.id.toDoRecyclerView),newItemPosition))));
+    }
 }
 

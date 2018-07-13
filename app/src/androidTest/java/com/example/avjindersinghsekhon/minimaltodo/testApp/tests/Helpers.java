@@ -1,12 +1,19 @@
 package com.example.avjindersinghsekhon.minimaltodo.testApp.tests;
 
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.TextView;
 
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 
 import java.security.SecureRandom;
 import java.text.ParseException;
@@ -16,6 +23,7 @@ import java.util.Locale;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static android.support.test.espresso.action.ViewActions.typeText;
@@ -132,6 +140,10 @@ public class Helpers {
         onView(matcher).perform(typeText(itemName));
     }
 
+    public static void replaceTextAction(Matcher<View> matcher, String itemName) {
+        onView(matcher).perform(replaceText(itemName));
+    }
+
     public static String getRandomString(int newItemStringLength) {
         final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
@@ -145,11 +157,17 @@ public class Helpers {
         return sb.toString();
     }
 
-    public static void typeNewItemAction(int xItemsAdded) {
-        for (int i = 1; i <= xItemsAdded; i++) {
-            AddItem.clickAddButton();
-            AddItem.typeRandomText();
-            AddItem.clickFloatActionButton();
+    public static void typeNewItemAction(int xItemsAdded, int xPositionToAddNewText) {
+        for (int i = 0; i <= xItemsAdded; i++) {
+            if (i == xPositionToAddNewText) {
+                AddItem.clickAddButton();
+                AddItem.typeThe8thItemText();
+                AddItem.clickFloatActionButton();
+            } else {
+                AddItem.clickAddButton();
+                AddItem.typeRandomText();
+                AddItem.clickFloatActionButton();
+            }
         }
     }
 
@@ -159,5 +177,45 @@ public class Helpers {
 
     public static void swipeDownAction(Matcher<View> matcher) {
         onView(matcher).perform(swipeDown());
+    }
+
+    public static Matcher<View> childAtPosition(final Matcher<View> parentMatcher, final int position) {
+
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Child at position " + position + " in parent ");
+                parentMatcher.describeTo(description);
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                ViewParent parent = view.getParent();
+                return parent instanceof ViewGroup && parentMatcher.matches(parent)
+                        && view.equals(((ViewGroup) parent).getChildAt(position));
+            }
+        };
+    }
+
+    public static int getRecyclerViewChildCount(Matcher<View> matcher) {
+        final int[] count = {0};
+        Espresso.onView(matcher).perform(new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return ViewMatchers.isAssignableFrom(RecyclerView.class);
+            }
+
+            @Override
+            public String getDescription() {
+                return "getting child count";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                RecyclerView rv = (RecyclerView) view;
+                count[0] = rv.getChildCount();
+            }
+        });
+        return count[0];
     }
 }

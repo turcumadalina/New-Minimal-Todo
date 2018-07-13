@@ -9,7 +9,7 @@ public class AddButtonVisibility extends EspressoTestBase {
     @Test
     public void testAAdd20Buttons() {
         //Step 1. Add 20 items
-        Helpers.typeNewItemAction(20);
+        Helpers.typeNewItemAction(20, 1);
 
         //Step 1. SwipeUp the list
         AddItem.swipeUpAction();
