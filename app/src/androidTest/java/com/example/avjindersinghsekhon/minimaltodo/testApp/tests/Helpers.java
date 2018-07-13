@@ -5,6 +5,8 @@ import android.support.test.espresso.NoMatchingRootException;
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -24,6 +26,9 @@ import java.util.Random;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.swipeDown;
+import static android.support.test.espresso.action.ViewActions.swipeRight;
+import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.PositionAssertions.isAbove;
 import static android.support.test.espresso.assertion.PositionAssertions.isBelow;
@@ -32,13 +37,13 @@ import static android.support.test.espresso.assertion.PositionAssertions.isRight
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 
 public class Helpers {
 
     public static boolean checkIfUIObjectIsVisible(Matcher<View> matcher) {
         try {
-            onView(matcher).check(matches(isDisplayed()));
+            onView(matcher).check(matches(isCompletelyDisplayed()));
             return true;
         } catch (NoMatchingViewException | AppNotIdleException | AssertionFailedError | NoMatchingRootException e) {
             return false;
@@ -147,11 +152,11 @@ public class Helpers {
         return buffer.toString();
     }
 
-    public static void addToDoItems(Matcher<View> matcher, String the8thItemText, int noOfItems) {
+    public static void addToDoItems(Matcher<View> matcher, String specificToDoItemText, int position, int noOfItems) {
         for (int i = 0; i < noOfItems; i++) {
-            if (i == 7) {
+            if (i == position) {
                 Home.clickAddButton();
-                onView(matcher).perform(typeText(the8thItemText));
+                onView(matcher).perform(typeText(specificToDoItemText));
                 AddItem.clickFloatingActionButton();
             } else {
                 Home.clickAddButton();
@@ -183,5 +188,43 @@ public class Helpers {
                         && view.equals(((ViewGroup) parent).getChildAt(position));
             }
         };
+    }
+
+    private static int getRecyclerViewChildCount(Matcher<View> matcher) {
+        final int[] count = {0};
+        onView(matcher).perform(new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return ViewMatchers.isAssignableFrom(RecyclerView.class);
+            }
+
+            @Override
+            public String getDescription() {
+                return "getting child count";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                RecyclerView rv = (RecyclerView) view;
+                count[0] = rv.getChildCount();
+            }
+        });
+        return count[0];
+    }
+
+    public static boolean getNoOfItemsInRecyclerView(Matcher<View> matcher, int noOfChild) {
+        return getRecyclerViewChildCount(matcher) == noOfChild;
+    }
+
+    public static void removeSpecificItem(Matcher<View> matcher, int atPosition) {
+        onView(childAtPosition(matcher, atPosition)).perform(swipeRight());
+    }
+
+    public static void swipeUpListOfToDosItems(Matcher<View> matcher) {
+        onView(matcher).perform(swipeUp());
+    }
+
+    public static void swipeDownListOfToDosItems(Matcher<View> matcher) {
+        onView(matcher).perform(swipeDown());
     }
 }

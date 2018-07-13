@@ -101,9 +101,9 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
     }
 
     @Test
-    public void editToDoItemText() {
+    public void editASpecificToDoItemText() {
         // Step: Add 15 items; The 8th item has name "This is what I need to test"
-        AddItem.add15Items();
+        AddItem.addSpecificNoOfItems("This is what I need to test", 7, 15);
 
         // Verify: Is item with text "This is what I need to test" displayed
         assertTrue("Item with text This is what I need to test is not displayed", AddItem.isItemWithTextThisIsWhatINeedToTestIsDisplayed());
@@ -116,5 +116,38 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
 
         // Verify: At the same position, the new text is displayed
         assertTrue("New item is not visible", AddItem.isToDoItemDisplayedAtSpecificPosition(" This is tne new text", 7));
+    }
+
+    @Test
+    public void checkNoOfToDoItemsAndRemoveOneOfThem() {
+        // Step: Add 5 items (1 of them with text "My new to do item")
+        AddItem.addSpecificNoOfItems("My new to do item", 2, 5);
+
+        // Verify: In the RecyclerView there are 5 items
+        AddItem.checkNoOfItemsInRecyclerView();
+
+        // Step: Remove the item with text "My new to do item"
+        AddItem.deleteItemWithTextMyNewToDoItem();
+
+        // Verify: Item with text "My new to do item" isn't displayed anymore
+        assertFalse("Item is still visible", AddItem.isDeleteItemWithTextMyNewToDoItemDisplayed());
+    }
+
+    @Test
+    public void addButtonVisibility() {
+        // Step: Add 20 items
+        AddItem.addSpecificNoOfItems("We still have a specific item", 15, 20);
+
+        // Step: Swipe up the list
+        AddItem.swipeUpTheList();
+
+        // Verify: Add button is NOT displayed
+        assertFalse("Add button is still visible", AddItem.isAddButtonDisplayedAfterSwipeUp());
+
+        // Step: Swipe down the list
+        AddItem.swipeDownTheList();
+
+        // Verify: Add button is displayed
+        assertTrue("Add button is not visible", AddItem.isAddButtonDisplayedAfterSwipeDown());
     }
 }

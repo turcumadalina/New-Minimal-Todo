@@ -60,8 +60,8 @@ public class AddItem {
         return Helpers.getText(withId(R.id.newToDoDateTimeReminderTextView));
     }
 
-    public static void add15Items() {
-        Helpers.addToDoItems(withId(R.id.userToDoEditText), "This is what I need to test", 15);
+    public static void addSpecificNoOfItems(String specificItem, int positionOfSpecificText, int numberOfItems) {
+        Helpers.addToDoItems(withId(R.id.userToDoEditText), specificItem, positionOfSpecificText, numberOfItems);
     }
 
     public static boolean isItemWithTextThisIsWhatINeedToTestIsDisplayed() {
@@ -75,5 +75,33 @@ public class AddItem {
 
     public static boolean isToDoItemDisplayedAtSpecificPosition(String toDoName, int itemPosition) {
         return Helpers.checkIfUIObjectIsVisible(allOf(withId(R.id.toDoListItemTextview), withText(toDoName), isDescendantOfA(Helpers.childAtPosition(withId(R.id.toDoRecyclerView), itemPosition))));
+    }
+
+    public static boolean checkNoOfItemsInRecyclerView() {
+        return Helpers.getNoOfItemsInRecyclerView(withId(R.id.toDoRecyclerView), 5);
+    }
+
+    public static void deleteItemWithTextMyNewToDoItem() {
+        Helpers.removeSpecificItem(withId(R.id.toDoRecyclerView), 2);
+    }
+
+    public static boolean isDeleteItemWithTextMyNewToDoItemDisplayed() {
+        return Helpers.checkIfUIObjectIsVisible(withText("My new to do item"));
+    }
+
+    public static void swipeUpTheList() {
+        Helpers.swipeUpListOfToDosItems(withId(R.id.toDoRecyclerView));
+    }
+
+    public static boolean isAddButtonDisplayedAfterSwipeUp() {
+        return Helpers.checkIfUIObjectIsVisible(withId(R.id.addToDoItemFAB));
+    }
+
+    public static void swipeDownTheList() {
+        Helpers.swipeDownListOfToDosItems(withId(R.id.toDoRecyclerView));
+    }
+
+    public static boolean isAddButtonDisplayedAfterSwipeDown() {
+        return Helpers.checkIfUIObjectIsVisible(withId(R.id.addToDoItemFAB));
     }
 }
