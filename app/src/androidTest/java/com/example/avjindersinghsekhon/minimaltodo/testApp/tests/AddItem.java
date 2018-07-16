@@ -77,7 +77,7 @@ public class AddItem {
         return Helpers.checkIfUIObjectIsVisible(allOf(withId(R.id.toDoListItemTextview), withText(toDoName), isDescendantOfA(Helpers.childAtPosition(withId(R.id.toDoRecyclerView), itemPosition))));
     }
 
-    public static boolean checkNoOfItemsInRecyclerView() {
+    public static boolean isNoOfItemsInRecyclerView() {
         return Helpers.getNoOfItemsInRecyclerView(withId(R.id.toDoRecyclerView), 5);
     }
 

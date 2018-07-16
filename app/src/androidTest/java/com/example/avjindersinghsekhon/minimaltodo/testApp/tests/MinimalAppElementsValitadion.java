@@ -124,7 +124,7 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
         AddItem.addSpecificNoOfItems("My new to do item", 2, 5);
 
         // Verify: In the RecyclerView there are 5 items
-        AddItem.checkNoOfItemsInRecyclerView();
+        assertTrue("No of items in recyclerView are not the seame as added items", AddItem.isNoOfItemsInRecyclerView());
 
         // Step: Remove the item with text "My new to do item"
         AddItem.deleteItemWithTextMyNewToDoItem();
