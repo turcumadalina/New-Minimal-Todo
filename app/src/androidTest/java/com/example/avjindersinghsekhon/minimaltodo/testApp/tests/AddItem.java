@@ -77,15 +77,15 @@ public class AddItem {
         Helpers.typeTextAction(withId(R.id.userToDoEditText), "This is what I need to test.");
     }
 
-    public static void typeASpecificItemFromList() {
-        Helpers.typeTextAction(withId(R.id.userToDoEditText), "My new to do item");
-    }
+//    public static void typeASpecificItemFromList(Matcher matcher,String textThatWillBeTyped) {
+//        Helpers.typeTextAction(withId(R.id.userToDoEditText), textThatWillBeTyped);
+//    }
 
-    public static boolean isThe8thItemTextVisible() {
+    public static boolean isItemTextVisible() {
         return Helpers.isVisible(withText("This is what I need to test."));
     }
 
-    public static void clickOnThe8thItemOfTheList() {
+    public static void clickOnASpecificItemOfTheList() {
         Helpers.clickAction(withText("This is what I need to test."));
     }
 
@@ -93,8 +93,8 @@ public class AddItem {
         Helpers.replaceTextAction(withId(R.id.userToDoEditText), "This is my new text I have to test.");
     }
 
-    public static boolean isThe8thItemDisplayedAtSpecificPosition(String itemNameIVerify,int newItemPosition) {
-        return Helpers.isVisible(allOf(withId(R.id.toDoListItemTextview), withText(itemNameIVerify), isDescendantOfA(Helpers.childAtPosition(withId(R.id.toDoRecyclerView),newItemPosition))));
+    public static boolean isItemDisplayedAtSpecificPosition(String itemNameIVerify, int newItemPosition) {
+        return Helpers.isVisible(allOf(withId(R.id.toDoListItemTextview), withText(itemNameIVerify), isDescendantOfA(Helpers.childAtPosition(withId(R.id.toDoRecyclerView), newItemPosition))));
     }
 }
 
