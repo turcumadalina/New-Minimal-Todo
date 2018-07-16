@@ -2,18 +2,34 @@ package com.example.avjindersinghsekhon.minimaltodo.testApp.tests;
 
 import android.support.test.espresso.Espresso;
 
+import com.example.avjindersinghsekhon.minimaltodo.R;
+
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ViewItems_ButtonValidation_Test extends EspressoTestBase {
-    
+
+    @After
+    public void deleteAllItems() {
+        int numberOfChildren = Helpers.getRecyclerViewChildCount(withId(R.id.toDoRecyclerView));
+        if (numberOfChildren > 0) {
+            for (int i = 0; i < numberOfChildren; i++) {
+                onView(Helpers.nthChildOf(withId(R.id.toDoRecyclerView), i)).perform(swipeLeft());
+            }
+        }
+    }
+
     @Test
     public void testAViewItems() {
 
@@ -125,7 +141,7 @@ public class ViewItems_ButtonValidation_Test extends EspressoTestBase {
         assertTrue("\"This is what I need to test\" is not displayed", Home.isThisIsWhatINeedToTestDisplayed());
 
         // Step: Edit the name of the 8th item and go back to the list
-        AddToDo.editToDoOnNththPosition(7, "This is my new to do test");
+        AddToDo.editToDoOnNthPosition(7, "This is my new to do test");
 
         // Verify: At the same position in the list, the item with text "This is what I need to test" is NOT displayed
         assertFalse("\"This is what I need to test\" is displayed", Home.isElementDisplayedOnPosition(7, withText("This is what I need to test")));
@@ -150,6 +166,5 @@ public class ViewItems_ButtonValidation_Test extends EspressoTestBase {
 
         // Verify: Add button is displayed
         assertTrue("Add button is not displayed", Home.isAddButtonDisplayed());
-
     }
 }

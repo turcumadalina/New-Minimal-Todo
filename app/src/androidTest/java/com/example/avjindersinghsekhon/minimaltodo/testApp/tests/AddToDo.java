@@ -70,7 +70,7 @@ public class AddToDo {
         Helpers.AddItems(withId(R.id.userToDoEditText), specialItem, numberOfItems, positionOfSpecialItem);
     }
 
-    public static void editToDoOnNththPosition(int positionOfItem, String myNewToDo) {
+    public static void editToDoOnNthPosition(int positionOfItem, String myNewToDo) {
         Helpers.editTheSpecialItem(withId(R.id.toDoRecyclerView), withId(R.id.userToDoEditText), withId(R.id.makeToDoFloatingActionButton), positionOfItem, myNewToDo);
     }
 }

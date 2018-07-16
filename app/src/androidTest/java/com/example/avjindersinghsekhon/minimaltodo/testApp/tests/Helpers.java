@@ -16,7 +16,6 @@ import java.security.SecureRandom;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
@@ -39,8 +38,6 @@ import static org.hamcrest.Matchers.allOf;
 
 
 public class Helpers {
-    private static Random rand = new Random();
-    private static int randomNumber = rand.nextInt(5);
 
     public static String getText(final Matcher<View> matcher) {
         final String[] stringHolder = {null};
@@ -57,7 +54,7 @@ public class Helpers {
 
             @Override
             public void perform(UiController uiController, View view) {
-                TextView tv = (TextView) view; //Save, because of check in getConstraints()
+                TextView tv = (TextView) view;
                 stringHolder[0] = tv.getText().toString();
             }
         });
@@ -162,7 +159,7 @@ public class Helpers {
         }
     }
 
-    private static Matcher<View> nthChildOf(final Matcher<View> parentMatcher, final int childPosition) {
+    public static Matcher<View> nthChildOf(final Matcher<View> parentMatcher, final int childPosition) {
         return new TypeSafeMatcher<View>() {
             @Override
             public void describeTo(Description description) {
@@ -185,7 +182,7 @@ public class Helpers {
         onView(nthChildOf(matcher, positionOfItem)).perform(swipeLeft());
     }
 
-    private static int getRecyclerViewChildCount(Matcher<View> matcher) {
+    public static int getRecyclerViewChildCount(Matcher<View> matcher) {
         final int[] count = {0};
         onView(matcher).perform(new ViewAction() {
             @Override
