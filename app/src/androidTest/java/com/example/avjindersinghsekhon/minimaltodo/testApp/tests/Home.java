@@ -44,11 +44,23 @@ public class Home {
         return Helpers.isFirstMatcherAboveSecondMatcher(allOf(is(instanceOf(ImageView.class)), withParent(withId(R.id.toDoEmptyView))), withText(R.string.no_to_dos));
     }
 
-    public static boolean isRemindeMeLeftOfDateSwitch() {
+    public static boolean isRemindMeLeftOfDateSwitch() {
         return Helpers.isFirstMatcherToTheLeftOfSecondMatcher(withText(R.string.remind_me), withId(R.id.toDoHasDateSwitchCompat));
     }
 
-    public static boolean isRemindeMeRightOfDateSwitch() {
+    public static boolean isRemindMeRightOfDateSwitch() {
         return Helpers.isFirstMatcherToTheRightOfSecondMatcher(withText(R.string.remind_me), withId(R.id.userToDoReminderIconImageButton));
+    }
+
+    public static boolean isSpecificItemDisplayed() {
+        return Helpers.isVisible(withText("My new to do item"));
+    }
+
+    public static boolean isTheCorrectNumberOfItemsInRecyclerView() {
+        return Helpers.checkTheCorrectNumberOfItemsInRecyclerView(withId(R.id.toDoRecyclerView), 5);
+    }
+
+    public static void deleteTheSpecificItem() {
+        Helpers.deleteTheSpecialItem(withId(R.id.toDoRecyclerView), 2);
     }
 }

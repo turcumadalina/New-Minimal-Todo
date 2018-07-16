@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.TextView;
 
+import com.example.avjindersinghsekhon.minimaltodo.R;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -25,6 +27,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.swipeDown;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.PositionAssertions.isAbove;
@@ -35,6 +38,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 public class Helpers {
 
@@ -157,15 +161,15 @@ public class Helpers {
         return sb.toString();
     }
 
-    public static void typeNewItemAction(int xItemsAdded, int xPositionToAddNewText) {
+    public static void typeNewItemAction(int xItemsAdded, String specificItem, int xPositionToAddNewText) {
         for (int i = 0; i <= xItemsAdded; i++) {
             if (i == xPositionToAddNewText) {
                 AddItem.clickAddButton();
-                AddItem.typeRandomItemText();
+                onView(withId(R.id.userToDoEditText)).perform(typeText(specificItem));
                 AddItem.clickFloatActionButton();
             } else {
                 AddItem.clickAddButton();
-                AddItem.typeRandomText();
+                onView(withId(R.id.userToDoEditText)).perform(typeText(getRandomString(5)));
                 AddItem.clickFloatActionButton();
             }
         }
@@ -197,7 +201,7 @@ public class Helpers {
         };
     }
 
-    public static int getRecyclerViewChildCount(Matcher<View> matcher) {
+    private static int getRecyclerViewChildCount(Matcher<View> matcher) {
         final int[] count = {0};
         Espresso.onView(matcher).perform(new ViewAction() {
             @Override
@@ -217,5 +221,17 @@ public class Helpers {
             }
         });
         return count[0];
+    }
+
+    public static boolean checkTheCorrectNumberOfItemsInRecyclerView(Matcher<View> matcher, int numberOfItemsInRecyclerView) {
+        if (getRecyclerViewChildCount(matcher) == numberOfItemsInRecyclerView) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void deleteTheSpecialItem(Matcher<View> matcher, int positionOfDeletedItem) {
+        onView(childAtPosition(matcher, positionOfDeletedItem)).perform(swipeLeft());
     }
 }

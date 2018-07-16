@@ -61,21 +61,12 @@ public class AddItem {
         Helpers.typeUpperCaseTextAction(withId(userToDoEditText), "my todo");
     }
 
-    public static void typeRandomText() {
-        String itemName = Helpers.getRandomString(5);
-        Helpers.typeTextAction(withId(R.id.userToDoEditText), itemName);
-    }
-
     public static void swipeUpAction() {
-        Helpers.swipeUpAction(allOf(withId(R.id.toDoRecyclerView)));
+        Helpers.swipeUpAction(withId(R.id.toDoRecyclerView));
     }
 
     public static void swipeDownAction() {
-        Helpers.swipeDownAction(allOf(withId(R.id.toDoRecyclerView)));
-    }
-
-    public static void typeRandomItemText() {
-        Helpers.typeTextAction(withId(R.id.userToDoEditText), "This is what I need to test.");
+        Helpers.swipeDownAction(withId(R.id.toDoRecyclerView));
     }
 
     public static boolean isItemTextVisible() {

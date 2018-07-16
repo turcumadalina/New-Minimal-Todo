@@ -4,8 +4,6 @@ import android.support.test.espresso.Espresso;
 
 import com.example.avjindersinghsekhon.minimaltodo.R;
 
-import junit.framework.Assert;
-
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -13,6 +11,8 @@ import org.junit.runners.MethodSorters;
 import java.text.ParseException;
 
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -64,8 +64,7 @@ public class ToDoList extends EspressoTestBase {
 
     @Test
     public void testCAddNewItemValidation() throws ParseException {
-
-        // Step 1.Start the app
+        // Step 1. Start the app
 
         // Expected Result: “Minimal” text is displayed
         assertTrue("Minimal text is not displayed.", Home.isMinimalVisible());
@@ -82,9 +81,9 @@ public class ToDoList extends EspressoTestBase {
         // Expected Result: EditText is displayed as a descendant of a LinearLayout
         assertTrue("EditText is not displayed as a descendant of a LinearLayout.", AddItem.isEditTextVisible());
 
-        //Expected Result: “Remind me” text is displayed between two buttons
-        assertTrue("Reminder me is not displayed to left.", Home.isRemindeMeLeftOfDateSwitch());
-        assertTrue("Reminder me is not displayed to right.", Home.isRemindeMeRightOfDateSwitch());
+        // Expected Result: “Remind me” text is displayed between two buttons
+        assertTrue("Reminder me is not displayed to left.", Home.isRemindMeLeftOfDateSwitch());
+        assertTrue("Reminder me is not displayed to right.", Home.isRemindMeRightOfDateSwitch());
 
         // Step 4. Add new item: "MY_TODO"(uppercase)
         AddItem.typeMyTodoText();
@@ -106,9 +105,61 @@ public class ToDoList extends EspressoTestBase {
         AddItem.clickFloatActionButton();
 
         String date2 = Helpers.getText(withId(R.id.todoListItemTimeTextView));
+
         // Expected Result: The date displayed when you added "MY_TODO" is now visible below this item
         assertTrue("The date is not displayed below MY TODO text.", AddItem.isDateBelowToMyTodoText());
 
-        Assert.assertEquals("Date1 is not equal with date2", date1, date2);
+        assertEquals("Date1 is not equal with date2.", date1, date2);
+    }
+
+    @Test
+    public void testAddButtonVisibility() {
+        // Step 1. Add 20 items
+        Helpers.typeNewItemAction(19, Helpers.getRandomString(5), 7);
+
+        // Step 1. SwipeUp the list
+        AddItem.swipeUpAction();
+
+        // Expected Result: Add button is NOT displayed
+        assertFalse("Add button is displayed.", AddItem.isAddButtonVisible());
+
+        // Step 1. SwipeDown the list
+        AddItem.swipeDownAction();
+
+        // Expected Result: Add button is displayed
+        assertTrue("Add button is not displayed.", AddItem.isAddButtonVisible());
+    }
+
+    @Test
+    public void testAddItems() {
+        // Step 1. Add 15 items. The 8th item has name "This is what I need to test."
+        Helpers.typeNewItemAction(15, "This is what I need to test.", 7);
+
+        // Expected Result: Item with text "This is what I need to test" is displayed.
+        assertTrue("This is what I need to test is not displayed.", AddItem.isItemTextVisible());
+
+        // Step 2. Edit the name of the 8th item and go back to the list.
+        AddItem.clickOnASpecificItemOfTheList();
+        AddItem.typeNewTextInTheList();
+        AddItem.clickFloatActionButton();
+
+        // Expected Result: At the same position in the list, the item with text "This is what I need to test" is NOT displayed. At the same position, the new text is displayed.
+        assertFalse("This is what i need to test displayed.", AddItem.isItemDisplayedAtSpecificPosition("This is what I need to test.", 7));
+        assertTrue("The new text i need to test is not displayed.", AddItem.isItemDisplayedAtSpecificPosition("This is my new text I have to test.", 7));
+    }
+
+    @Test
+    public void EditItems() {
+        // Step 1. Add 5 items (1 of them with text "My new to do item")
+        Helpers.typeNewItemAction(4, "My new to do item.", 2);
+
+        // Expected Result: In the RecyclerView there are 5 items
+        assertTrue("There are more/less then 5 items in RecyclerView.", Home.isTheCorrectNumberOfItemsInRecyclerView());
+
+        // Step 2. Remove the item with text "My new to do item", but don't create the matcher using the text
+        Home.deleteTheSpecificItem();
+
+        // Expected Result: Item isn't displayed anymore
+        assertFalse("Item is displayed.", Home.isSpecificItemDisplayed());
     }
 }
