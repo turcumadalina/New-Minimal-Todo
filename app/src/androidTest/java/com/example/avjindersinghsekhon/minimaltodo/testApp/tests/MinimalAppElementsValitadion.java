@@ -2,15 +2,31 @@ package com.example.avjindersinghsekhon.minimaltodo.testApp.tests;
 
 import android.support.test.espresso.Espresso;
 
+import com.example.avjindersinghsekhon.minimaltodo.R;
+
+import org.junit.After;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MinimalAppElementsValitadion extends EspressoTestBase {
+
+    @After
+    public void deleteAllItems() {
+        int numberOfChildren = Helpers.getRecyclerViewChildCount(withId(R.id.toDoRecyclerView));
+        if (numberOfChildren > 0) {
+            for (int i = 0; i < numberOfChildren; i++) {
+                onView(Helpers.childAtPosition(withId(R.id.toDoRecyclerView), i)).perform(swipeLeft());
+            }
+        }
+    }
 
     @Test
     public void testAhomePageValidation() {

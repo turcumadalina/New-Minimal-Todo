@@ -190,7 +190,7 @@ public class Helpers {
         };
     }
 
-    private static int getRecyclerViewChildCount(Matcher<View> matcher) {
+    public static int getRecyclerViewChildCount(Matcher<View> matcher) {
         final int[] count = {0};
         onView(matcher).perform(new ViewAction() {
             @Override
@@ -213,10 +213,10 @@ public class Helpers {
     }
 
     public static boolean getNoOfItemsInRecyclerView(Matcher<View> matcher, int noOfChild) {
-      if(getRecyclerViewChildCount(matcher) == noOfChild) {
-          return true;
-        }else{
-          return false;
+        if (noOfChild == getRecyclerViewChildCount(matcher)) {
+            return true;
+        } else {
+            return false;
         }
     }
 
