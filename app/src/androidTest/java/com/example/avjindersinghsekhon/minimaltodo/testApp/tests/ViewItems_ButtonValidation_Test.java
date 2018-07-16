@@ -13,7 +13,7 @@ import static junit.framework.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ViewItems_ButtonValidation_Test extends EspressoTestBase {
-
+    
     @Test
     public void testAViewItems() {
 
@@ -125,7 +125,7 @@ public class ViewItems_ButtonValidation_Test extends EspressoTestBase {
         assertTrue("\"This is what I need to test\" is not displayed", Home.isThisIsWhatINeedToTestDisplayed());
 
         // Step: Edit the name of the 8th item and go back to the list
-        AddToDo.editToDoOn8thPosition(7, "This is my new to do test");
+        AddToDo.editToDoOnNththPosition(7, "This is my new to do test");
 
         // Verify: At the same position in the list, the item with text "This is what I need to test" is NOT displayed
         assertFalse("\"This is what I need to test\" is displayed", Home.isElementDisplayedOnPosition(7, withText("This is what I need to test")));

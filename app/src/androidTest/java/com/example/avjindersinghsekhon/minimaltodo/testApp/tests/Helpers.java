@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.avjindersinghsekhon.minimaltodo.R;
-
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -37,7 +35,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFro
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.allOf;
 
 
@@ -239,12 +236,6 @@ public class Helpers {
             return true;
         } catch (Exception e) {
             return false;
-        }
-    }
-
-    public static void deleteAllItems() {
-        for (int i = 0; i< getRecyclerViewChildCount(withId(R.id.toDoRecyclerView)); i++) {
-            onView(nthChildOf(withId(R.id.toDoRecyclerView), i)).perform(swipeLeft());
         }
     }
 }
