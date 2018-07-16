@@ -72,7 +72,7 @@ public class Helpers {
         try {
             onView(matcher).check(matches(isDisplayed()));
             return true;
-        } catch (NoMatchingViewException e) {
+        } catch (Exception e) {
             // View is not in hierarchy
             return false;
         }
@@ -161,7 +161,7 @@ public class Helpers {
         for (int i = 0; i <= xItemsAdded; i++) {
             if (i == xPositionToAddNewText) {
                 AddItem.clickAddButton();
-                AddItem.typeThe8thItemText();
+                AddItem.typeRandomItemText();
                 AddItem.clickFloatActionButton();
             } else {
                 AddItem.clickAddButton();

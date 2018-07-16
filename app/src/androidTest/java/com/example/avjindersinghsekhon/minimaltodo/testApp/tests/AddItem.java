@@ -5,6 +5,7 @@ import android.widget.ImageButton;
 
 import com.example.avjindersinghsekhon.minimaltodo.R;
 
+import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
@@ -73,13 +74,9 @@ public class AddItem {
         Helpers.swipeDownAction(allOf(withId(R.id.toDoRecyclerView)));
     }
 
-    public static void typeThe8thItemText() {
+    public static void typeRandomItemText() {
         Helpers.typeTextAction(withId(R.id.userToDoEditText), "This is what I need to test.");
     }
-
-//    public static void typeASpecificItemFromList(Matcher matcher,String textThatWillBeTyped) {
-//        Helpers.typeTextAction(withId(R.id.userToDoEditText), textThatWillBeTyped);
-//    }
 
     public static boolean isItemTextVisible() {
         return Helpers.isVisible(withText("This is what I need to test."));
@@ -95,6 +92,10 @@ public class AddItem {
 
     public static boolean isItemDisplayedAtSpecificPosition(String itemNameIVerify, int newItemPosition) {
         return Helpers.isVisible(allOf(withId(R.id.toDoListItemTextview), withText(itemNameIVerify), isDescendantOfA(Helpers.childAtPosition(withId(R.id.toDoRecyclerView), newItemPosition))));
+    }
+
+    public static boolean isAddButtonVisible() {
+        return Helpers.isVisible(allOf(withId(R.id.addToDoItemFAB), isCompletelyDisplayed()));
     }
 }
 
