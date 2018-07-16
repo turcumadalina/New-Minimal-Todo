@@ -93,15 +93,11 @@ public class AddItem {
         Helpers.swipeUpListOfToDosItems(withId(R.id.toDoRecyclerView));
     }
 
-    public static boolean isAddButtonDisplayedAfterSwipeUp() {
+    public static boolean isAddButtonDisplayed() {
         return Helpers.checkIfUIObjectIsVisible(withId(R.id.addToDoItemFAB));
     }
 
     public static void swipeDownTheList() {
         Helpers.swipeDownListOfToDosItems(withId(R.id.toDoRecyclerView));
-    }
-
-    public static boolean isAddButtonDisplayedAfterSwipeDown() {
-        return Helpers.checkIfUIObjectIsVisible(withId(R.id.addToDoItemFAB));
     }
 }

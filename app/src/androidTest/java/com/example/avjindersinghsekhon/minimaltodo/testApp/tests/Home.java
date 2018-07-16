@@ -43,7 +43,7 @@ public class Home {
         return Helpers.isUIObjectBelowAnotherObject(withId(R.id.todoListItemTimeTextView), withId(R.id.toDoListItemTextview));
     }
 
-    public static boolean isAddButtonVisivle() {
+    public static boolean isAddButtonVisible() {
         return Helpers.checkIfUIObjectIsVisible(withId(R.id.addToDoItemFAB));
     }
 

@@ -25,7 +25,7 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
         assertTrue("Image is not displayed above", Home.isImageAboveNoToDoText());
 
         // Verify: "Add" button is displayed and clickable
-        assertTrue("Add button is not displayd", Home.isAddButtonVisivle());
+        assertTrue("Add button is not displayd", Home.isAddButtonVisible());
         assertTrue("Add button is not clickable", Home.isAddButtonClickable());
 
         // Verify: “More options” button is displayed and it has a sibling with the text "Minimal"
@@ -142,12 +142,12 @@ public class MinimalAppElementsValitadion extends EspressoTestBase {
         AddItem.swipeUpTheList();
 
         // Verify: Add button is NOT displayed
-        assertFalse("Add button is still visible", AddItem.isAddButtonDisplayedAfterSwipeUp());
+        assertFalse("Add button is still visible", AddItem.isAddButtonDisplayed());
 
         // Step: Swipe down the list
         AddItem.swipeDownTheList();
 
         // Verify: Add button is displayed
-        assertTrue("Add button is not visible", AddItem.isAddButtonDisplayedAfterSwipeDown());
+        assertTrue("Add button is not visible", AddItem.isAddButtonDisplayed());
     }
 }

@@ -213,7 +213,11 @@ public class Helpers {
     }
 
     public static boolean getNoOfItemsInRecyclerView(Matcher<View> matcher, int noOfChild) {
-        return getRecyclerViewChildCount(matcher) == noOfChild;
+      if(getRecyclerViewChildCount(matcher) == noOfChild) {
+          return true;
+        }else{
+          return false;
+        }
     }
 
     public static void removeSpecificItem(Matcher<View> matcher, int atPosition) {
